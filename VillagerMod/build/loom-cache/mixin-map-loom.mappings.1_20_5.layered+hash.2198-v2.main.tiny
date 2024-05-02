@@ -1,1 +1,3 @@
 v1	named	intermediary
+METHOD	pawel/villagermod/mixin/VillagerMixin	()Lnet/minecraft/world/entity/ai/Brain;	getBrain	method_18868
+METHOD	pawel/villagermod/mixin/VillagerMixin	(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LightningBolt;)V	thunderHit	method_5800

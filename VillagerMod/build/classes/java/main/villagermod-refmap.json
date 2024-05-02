@@ -1,4 +1,14 @@
 {
-  "mappings": {},
-  "data": {}
+  "mappings": {
+    "pawel/villagermod/mixin/VillagerMixin": {
+      "tick": "Lnet/minecraft/class_1646;method_5773()V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "pawel/villagermod/mixin/VillagerMixin": {
+        "tick": "Lnet/minecraft/class_1646;method_5773()V"
+      }
+    }
+  }
 }
