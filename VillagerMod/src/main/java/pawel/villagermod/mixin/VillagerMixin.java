@@ -33,14 +33,6 @@ public abstract class VillagerMixin extends AbstractVillager {
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void makePanic(CallbackInfo ci) {
-//        protected Optional<NearestVisibleLivingEntities> getVisibleEntities(LivingEntity livingEntity) {
-//            return livingEntity.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES);
-//        }
-
-            // Add your condition here
-//        if (true) { // replace with your condition
-//            //this.setPanicTime(600); // 600 ticks = 30 seconds
-//        }
         Optional<NearestVisibleLivingEntities> visibleEntitiesOpt = this.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES);
 
         if (visibleEntitiesOpt.isPresent()) {
@@ -52,6 +44,4 @@ public abstract class VillagerMixin extends AbstractVillager {
             }
         }
     }
-        // print entity that villager sees
-
 }
