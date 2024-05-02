@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "pawel.villagermod.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "AbstractVillagerMixin",
+    "VillagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
