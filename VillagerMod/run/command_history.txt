@@ -1,0 +1,4 @@
+/weather
+/weather clear
+/time set
+/time set day

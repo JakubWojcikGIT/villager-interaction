@@ -1,5 +1,8 @@
 {
   "mappings": {
+    "pawel/villagermod/mixin/MobMixin": {
+      "baseTick": "Lnet/minecraft/class_1308;method_5670()V"
+    },
     "pawel/villagermod/mixin/VillagerHostilesSensorMixin": {
       "isMatchingEntity": "Lnet/minecraft/class_4150;method_35148(Lnet/minecraft/class_1309;Lnet/minecraft/class_1309;)Z"
     },
@@ -9,6 +12,9 @@
   },
   "data": {
     "named:intermediary": {
+      "pawel/villagermod/mixin/MobMixin": {
+        "baseTick": "Lnet/minecraft/class_1308;method_5670()V"
+      },
       "pawel/villagermod/mixin/VillagerHostilesSensorMixin": {
         "isMatchingEntity": "Lnet/minecraft/class_4150;method_35148(Lnet/minecraft/class_1309;Lnet/minecraft/class_1309;)Z"
       },

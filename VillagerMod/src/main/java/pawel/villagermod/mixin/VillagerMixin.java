@@ -66,7 +66,7 @@ public abstract class VillagerMixin extends AbstractVillager implements IVillage
             irritation_level--;
         }
 
-        if (irritation_level < 0) {
+        if (irritation_level < 0 || irritation_level > 200) {
             irritation_level = 0;
         }
     }

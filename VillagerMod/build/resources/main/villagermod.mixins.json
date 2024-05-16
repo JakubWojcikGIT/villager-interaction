@@ -5,8 +5,9 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AbstractVillagerMixin",
-    "VillagerMixin",
-    "VillagerHostilesSensorMixin"
+    "MobMixin",
+    "VillagerHostilesSensorMixin",
+    "VillagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

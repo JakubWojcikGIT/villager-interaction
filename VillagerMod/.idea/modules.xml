@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/VillagerConfig.main.iml" filepath="$PROJECT_DIR$/.idea/modules/VillagerConfig.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/VillagerConfig.test.iml" filepath="$PROJECT_DIR$/.idea/modules/VillagerConfig.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/VillagerMod.main.iml" filepath="$PROJECT_DIR$/.idea/modules/VillagerMod.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/VillagerMod.test.iml" filepath="$PROJECT_DIR$/.idea/modules/VillagerMod.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pawel.VillagerMod.main.iml" filepath="$PROJECT_DIR$/.idea/modules/pawel.VillagerMod.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pawel.VillagerMod.test.iml" filepath="$PROJECT_DIR$/.idea/modules/pawel.VillagerMod.test.iml" />
     </modules>
   </component>
 </project>
