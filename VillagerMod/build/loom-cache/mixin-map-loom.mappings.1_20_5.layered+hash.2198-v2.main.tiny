@@ -1,2 +1,1 @@
 v1	named	intermediary
-METHOD	pawel/villagermod/mixin/VillagerMixin	(Lnet/minecraft/world/damagesource/DamageSource;)Lnet/minecraft/sounds/SoundEvent;	getHurtSound	method_6011

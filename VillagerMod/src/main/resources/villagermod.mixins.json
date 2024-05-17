@@ -4,12 +4,8 @@
   "package": "pawel.villagermod.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "AbstractVillagerMixin",
     "RaiderMixin",
-    "VillagerHostilesSensorMixin",
-    "VillagerMixin",
-    "VindicatorMixin",
-    "RaiderMixin"
+    "VindicatorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
