@@ -2,12 +2,18 @@
   "mappings": {
     "pawel/villagermod/mixin/RaiderMixin": {
       "aiStep": "Lnet/minecraft/class_3763;method_6007()V"
+    },
+    "pawel/villagermod/mixin/VindicatorMixin": {
+      "createAttributes": "Lnet/minecraft/class_1632;method_26926()Lnet/minecraft/class_5132$class_5133;"
     }
   },
   "data": {
     "named:intermediary": {
       "pawel/villagermod/mixin/RaiderMixin": {
         "aiStep": "Lnet/minecraft/class_3763;method_6007()V"
+      },
+      "pawel/villagermod/mixin/VindicatorMixin": {
+        "createAttributes": "Lnet/minecraft/class_1632;method_26926()Lnet/minecraft/class_5132$class_5133;"
       }
     }
   }

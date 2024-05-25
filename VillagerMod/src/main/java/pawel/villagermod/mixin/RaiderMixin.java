@@ -19,7 +19,7 @@ public abstract class RaiderMixin extends LivingEntity {
     }
 
     @Inject(method = "aiStep", at = @At("HEAD"))
-    private void findTarget(CallbackInfo ci) {
+    private void aiStep(CallbackInfo ci) {
         if (this.getType() == EntityType.VINDICATOR) {
             IVindicator vindicator = (IVindicator) this;
             vindicator.updateVindicator();
