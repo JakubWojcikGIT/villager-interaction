@@ -2,3 +2,6 @@
 /weather clear
 /time set
 /time set day
+/ti
+/time set
+/time set day
