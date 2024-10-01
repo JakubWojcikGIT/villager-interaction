@@ -1,0 +1,34 @@
+/summon
+/summon tutorialmod:porcupine
+/summon
+/summon villagermod:wooden_vindicator
+/summon villagermod:porcupine
+/summon
+/summon villagermod:wooden_vindicator
+/summon villagermod:diamond_villager
+/summon minecraft:villager
+/summon villagermod:diamond_villager
+/gamemode
+/gamemode adventure
+/summon villagermod:wooden_villager
+/gamemode survival
+/summon villagermod:diamond_villager
+/gamemode survival
+/gamemode creative
+/summon villagermod:diamond_villager
+/summon villagermod:wooden_villager
+/summon villagermod:diamond_villager
+/summon villagermod:wooden_villager
+/weather
+/weather clear
+/
+/time set day
+/summon villagermod:wooden_villager
+/summon villagermod:diamond_villager
+/summon villagermod:wooden_villager
+/summon villagermod:diamond_villager
+/summon villagermod:wooden_villager
+/summon villagermod:diamond_villager
+/summon villagermod:wooden_villager
+/summon villagermod:diamond_villager
+/time set day
