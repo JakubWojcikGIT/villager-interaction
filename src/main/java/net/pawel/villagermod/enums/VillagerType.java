@@ -1,4 +1,4 @@
-package net.pawel.villagermod;
+package net.pawel.villagermod.enums;
 
 public enum VillagerType {
     WOODEN,

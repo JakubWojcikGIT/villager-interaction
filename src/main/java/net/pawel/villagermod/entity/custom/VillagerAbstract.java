@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.world.World;
-import net.pawel.villagermod.VillagerType;
+import net.pawel.villagermod.enums.VillagerType;
 import net.pawel.villagermod.entity.ai.*;
 
 public abstract class VillagerAbstract extends AnimalEntity {

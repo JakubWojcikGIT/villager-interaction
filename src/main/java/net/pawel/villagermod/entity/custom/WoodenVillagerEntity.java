@@ -8,7 +8,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.pawel.villagermod.VillagerType;
+import net.pawel.villagermod.enums.VillagerType;
 import net.pawel.villagermod.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
 
