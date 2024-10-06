@@ -32,3 +32,4 @@
 /summon villagermod:wooden_villager
 /summon villagermod:diamond_villager
 /time set day
+/summon villagermod:diamond_villager

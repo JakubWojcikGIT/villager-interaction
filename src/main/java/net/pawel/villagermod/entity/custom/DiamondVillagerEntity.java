@@ -13,7 +13,6 @@ import net.pawel.villagermod.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class DiamondVillagerEntity extends VillagerAbstract {
-
     public DiamondVillagerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world, VillagerType.DIAMOND);
     }
@@ -26,9 +25,15 @@ public class DiamondVillagerEntity extends VillagerAbstract {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
 
+    //TODO create custom child for each villager type
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.DIAMOND_VILLAGER.create(world);
+        DiamondVillagerEntity customChild = ModEntities.DIAMOND_VILLAGER.create(world);
+        // example of custom attribute
+        if (customChild != null) {
+            customChild.setHealth(this.getIrritation() * 0.1f);
+        }
+        return customChild;
     }
 }

@@ -8,10 +8,12 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import net.pawel.villagermod.enums.VillagerType;
 import net.pawel.villagermod.entity.ai.*;
@@ -27,6 +29,12 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationTimeout = 0;
+
+    private final int BASE_HEALTH = 15;
+    private final int BASE_MOVEMENT_SPEED = 2;
+    private final float BASE_ARMOR = 0.5f;
+    private final float BASE_ATTACK_DAMAGE = 2;
+
 
 
     public VillagerAbstract(EntityType<? extends AnimalEntity> entityType, World world, VillagerType villagerType) {
@@ -53,7 +61,6 @@ public abstract class VillagerAbstract extends AnimalEntity {
         this.targetSelector.add(1, new TargetEnemyTypeGoal(this));
         this.targetSelector.add(1, new TargetIrritatingFriend(this));
     }
-
 
 
     private void setupAnimationStates() {
@@ -114,8 +121,25 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isOf(Items.BEETROOT);
+    public void breed(ServerWorld world, AnimalEntity other) {
+        PassiveEntity passiveEntity = this.createChild(world, other);
+        if (passiveEntity != null) {
+            passiveEntity.setBaby(true);
+            passiveEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+            this.breed(world, other, passiveEntity);
+            world.spawnEntityAndPassengers(passiveEntity);
+        }
+    }
+
+    @Override
+    public boolean canBreedWith(AnimalEntity other) {
+        if (other == this) {
+            return false;
+        } else if (other.getClass() != this.getClass()) {
+            return false;
+        } else {
+            return this.isInLove() && other.isInLove();
+        }
     }
 
     public int getIrritation() {
