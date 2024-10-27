@@ -1,6 +1,7 @@
 package net.pawel.villagermod.utils;
 
 import net.minecraft.util.math.Box;
+import net.minecraft.world.World;
 import net.pawel.villagermod.entity.custom.VillagerAbstract;
 
 import java.util.List;
@@ -44,5 +45,14 @@ public class VillagerUtils {
             }
         }
         return nearestVillager;
+    }
+
+
+    public static boolean isCrowded(VillagerAbstract groupLeader, World world, int personalSpaceRadius, int crowdThreshold) {
+        if (groupLeader == null) {
+            return false;
+        }
+        List<? extends VillagerAbstract> list = world.getEntitiesByClass(VillagerAbstract.class, groupLeader.getBoundingBox().expand(personalSpaceRadius), villager -> villager != groupLeader);
+        return list.size() > crowdThreshold;
     }
 }

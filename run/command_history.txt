@@ -33,3 +33,18 @@
 /summon villagermod:diamond_villager
 /time set day
 /summon villagermod:diamond_villager
+/summon villagermod:wooden_villager
+/summon villagermod:diamond_villager
+/time set day
+/summon villagermod:diamond_villager
+/summon villagermod:diamond_villagers
+/summon villagermod:diamond_villager
+/
+/summon villagermod:diamond_villager
+/time set day
+/summon villagermod:diamond_villager
+/summon villagermod:wooden_villager
+/summon villagermod:extraverted_villager
+/summon villagermod:introverted_villager
+/summon villagermod:extraverted_villager
+/summon villagermod:introverted_villager

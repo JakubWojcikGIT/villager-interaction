@@ -1,6 +1,7 @@
 package net.pawel.villagermod.entity.ai;
 
 import net.pawel.villagermod.entity.custom.VillagerAbstract;
+import net.pawel.villagermod.utils.VillagerUtils;
 
 import java.util.List;
 
@@ -15,12 +16,12 @@ public class IntrovertGroupSeekingGoal extends VillagerGroupSeekingGoal {
     @Override
     public boolean canStart() {
         this.groupLeader = super.findGroupLeader();
-        return this.groupLeader != null && !this.isCrowded();
+        return this.groupLeader != null && !VillagerUtils.isCrowded(this.groupLeader, this.world, super.personalSpaceRadius, this.crowdThreshold);
     }
 
     @Override
     public boolean shouldContinue() {
-        return this.groupLeader != null && this.groupLeader.isAlive() && !this.groupLeader.isPanicking() && this.villager.squaredDistanceTo(this.groupLeader) > super.personalSpaceRadius * super.personalSpaceRadius && !this.isCrowded();
+        return this.groupLeader != null && this.groupLeader.isAlive() && !this.groupLeader.isPanicking() && this.villager.squaredDistanceTo(this.groupLeader) > super.personalSpaceRadius * super.personalSpaceRadius && !VillagerUtils.isCrowded(this.groupLeader, this.world, super.personalSpaceRadius, this.crowdThreshold);
     }
 
     private boolean isCrowded() {

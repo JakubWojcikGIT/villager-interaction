@@ -16,6 +16,7 @@ import net.pawel.villagermod.entity.ai.IntrovertGroupSeekingGoal;
 import net.pawel.villagermod.entity.ai.VillagerAvoidCrowdGoal;
 import net.pawel.villagermod.entity.ai.VillagerGroupSeekingGoal;
 import net.pawel.villagermod.entity.ModEntities;
+import net.pawel.villagermod.utils.VillagerUtils;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -43,10 +44,28 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
 
     public static DefaultAttributeContainer.Builder createWoodenVillagerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 1)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.getWorld().isClient()) {
+            super.setupAnimationStates();
+        }
+        updateStressLevel();
+    }
+
+    private void updateStressLevel() {
+        if (VillagerUtils.isCrowded(this, this.getEntityWorld(), this.PERSONAL_SPACE_RADIUS, this.CROWD_THRESHOLD)) {
+            this.stressLevel++;
+        } else if (this.stressLevel > 0) {
+            this.stressLevel--;
+        }
+        System.out.println("Stress level (Introvert): " + this.stressLevel);
     }
 
     @Nullable

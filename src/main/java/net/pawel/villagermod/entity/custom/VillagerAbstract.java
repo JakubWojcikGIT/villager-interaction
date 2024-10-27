@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 
 public abstract class VillagerAbstract extends AnimalEntity {
     protected int stressLevel = 0;
+    protected int PERSONAL_SPACE_RADIUS = 3;
+    protected int CROWD_THRESHOLD = 3;
 
     private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState idleAnimationState = new AnimationState();
@@ -27,7 +29,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
         return other != this;
     }
 
-    private void setupAnimationStates() {
+    protected void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(40) + 80;
             this.idleAnimationState.start(this.age);
