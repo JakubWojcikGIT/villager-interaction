@@ -5,17 +5,17 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
-import net.pawel.villagermod.entity.custom.DiamondVillagerEntity;
+import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.animation.ModAnimations;
 
 // Made with Blockbench 4.10.4
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
-public class DiamondVillagerModel<T extends DiamondVillagerEntity> extends SinglePartEntityModel<T> {
+public class ExtravertedVillagerModel<T extends ExtravertedVillagerEntity> extends SinglePartEntityModel<T> {
     private final ModelPart body;
     private final ModelPart head;
 
-    public DiamondVillagerModel(ModelPart root) {
+    public ExtravertedVillagerModel(ModelPart root) {
         this.body = root.getChild("body");
         this.head = root.getChild("body").getChild("head");
     }
@@ -61,7 +61,7 @@ public class DiamondVillagerModel<T extends DiamondVillagerEntity> extends Singl
     }
 
     @Override
-    public void setAngles(DiamondVillagerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(ExtravertedVillagerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(netHeadYaw, headPitch);
 

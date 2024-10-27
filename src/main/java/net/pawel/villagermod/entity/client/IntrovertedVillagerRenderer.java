@@ -6,22 +6,22 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.pawel.villagermod.VillagerMod;
-import net.pawel.villagermod.entity.custom.DiamondVillagerEntity;
+import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
 
-public class DiamondVillagerRenderer extends MobEntityRenderer<DiamondVillagerEntity, DiamondVillagerModel<DiamondVillagerEntity>> {
-    private static final Identifier TEXTURE = new Identifier(VillagerMod.MOD_ID, "textures/entity/diamond_villager.png");
+public class IntrovertedVillagerRenderer extends MobEntityRenderer<IntrovertedVillagerEntity, IntrovertedVillagerModel<IntrovertedVillagerEntity>> {
+    private static final Identifier TEXTURE = new Identifier(VillagerMod.MOD_ID, "textures/entity/wooden_villager.png");
 
-    public DiamondVillagerRenderer(EntityRendererFactory.Context context) {
-        super(context, new DiamondVillagerModel<>(context.getPart(ModModelLayers.DIAMOND_VILLAGER)), 0.6f);
+    public IntrovertedVillagerRenderer(EntityRendererFactory.Context context) {
+        super(context, new IntrovertedVillagerModel<>(context.getPart(ModModelLayers.WOODEN_VILLAGER)), 0.6f);
     }
 
     @Override
-    public Identifier getTexture(DiamondVillagerEntity entity) {
+    public Identifier getTexture(IntrovertedVillagerEntity entity) {
         return TEXTURE;
     }
 
     @Override
-    public void render(DiamondVillagerEntity mobEntity, float f, float g, MatrixStack matrixStack,
+    public void render(IntrovertedVillagerEntity mobEntity, float f, float g, MatrixStack matrixStack,
                        VertexConsumerProvider vertexConsumerProvider, int i) {
         if(mobEntity.isBaby()) {
             matrixStack.scale(0.5f, 0.5f, 0.5f);

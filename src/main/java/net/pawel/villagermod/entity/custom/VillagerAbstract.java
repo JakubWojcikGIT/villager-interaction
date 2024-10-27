@@ -3,65 +3,29 @@ package net.pawel.villagermod.entity.custom;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.pawel.villagermod.enums.VillagerType;
-import net.pawel.villagermod.entity.ai.*;
 
 public abstract class VillagerAbstract extends AnimalEntity {
-    public static final int IRRITATION_THRESHOLD = 100;
-    private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private int irritation = 0;
-    private final VillagerType villagerType;
+    protected int stressLevel = 0;
 
+    private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationTimeout = 0;
 
-    private final int BASE_HEALTH = 15;
-    private final int BASE_MOVEMENT_SPEED = 2;
-    private final float BASE_ARMOR = 0.5f;
-    private final float BASE_ATTACK_DAMAGE = 2;
-
-
-
-    public VillagerAbstract(EntityType<? extends AnimalEntity> entityType, World world, VillagerType villagerType) {
+    public VillagerAbstract(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
-        this.villagerType = villagerType;
     }
 
-    @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-
-        this.goalSelector.add(1, new AnimalMateGoal(this, 1.15D));
-        this.goalSelector.add(2, new VillagerAttackGoal(this, 1.15D, true));
-        this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(Items.BEETROOT), false));
-
-        this.goalSelector.add(4, new FollowParentGoal(this, 1.15D));
-
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1D));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-        this.goalSelector.add(7, new LookAroundGoal(this));
-        this.goalSelector.add(8, new IrritationManagingGoal(this));
-
-        this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(1, new TargetEnemyTypeGoal(this));
-        this.targetSelector.add(1, new TargetIrritatingFriend(this));
+    public boolean canSocializeWith(VillagerAbstract other) {
+        return other != this;
     }
-
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
@@ -99,7 +63,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
     @Override
     public void tick() {
         super.tick();
-        if(this.getWorld().isClient()) {
+        if (this.getWorld().isClient()) {
             setupAnimationStates();
         }
     }
@@ -119,38 +83,4 @@ public abstract class VillagerAbstract extends AnimalEntity {
         this.dataTracker.startTracking(ATTACKING, false);
     }
 
-
-    @Override
-    public void breed(ServerWorld world, AnimalEntity other) {
-        PassiveEntity passiveEntity = this.createChild(world, other);
-        if (passiveEntity != null) {
-            passiveEntity.setBaby(true);
-            passiveEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
-            this.breed(world, other, passiveEntity);
-            world.spawnEntityAndPassengers(passiveEntity);
-        }
-    }
-
-    @Override
-    public boolean canBreedWith(AnimalEntity other) {
-        if (other == this) {
-            return false;
-        } else if (other.getClass() != this.getClass()) {
-            return false;
-        } else {
-            return this.isInLove() && other.isInLove();
-        }
-    }
-
-    public int getIrritation() {
-        return this.irritation;
-    }
-
-    public void setIrritation(int irritation) {
-        this.irritation = irritation;
-    }
-
-    public VillagerType getVillagerType() {
-        return this.villagerType;
-    }
 }

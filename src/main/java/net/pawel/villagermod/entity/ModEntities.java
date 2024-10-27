@@ -8,16 +8,16 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.pawel.villagermod.VillagerMod;
-import net.pawel.villagermod.entity.custom.DiamondVillagerEntity;
-import net.pawel.villagermod.entity.custom.WoodenVillagerEntity;
+import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
+import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
 
 public class ModEntities {
-    public static final EntityType<DiamondVillagerEntity> DIAMOND_VILLAGER = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(VillagerMod.MOD_ID, "diamond_villager"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, DiamondVillagerEntity::new)
+    public static final EntityType<ExtravertedVillagerEntity> DIAMOND_VILLAGER = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(VillagerMod.MOD_ID, "extraverted_villager"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ExtravertedVillagerEntity::new)
             .dimensions(EntityDimensions.fixed(1f, 2f)).build());
-    public static final EntityType<WoodenVillagerEntity> WOODEN_VILLAGER = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(VillagerMod.MOD_ID, "wooden_villager"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, WoodenVillagerEntity::new)
+    public static final EntityType<IntrovertedVillagerEntity> WOODEN_VILLAGER = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(VillagerMod.MOD_ID, "introverted_villager"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, IntrovertedVillagerEntity::new)
             .dimensions(EntityDimensions.fixed(1f, 2f)).build());
 }

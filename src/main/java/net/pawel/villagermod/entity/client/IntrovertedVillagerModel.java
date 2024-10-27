@@ -6,16 +6,16 @@ import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import net.pawel.villagermod.entity.animation.ModAnimations;
-import net.pawel.villagermod.entity.custom.WoodenVillagerEntity;
+import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
 
 // Made with Blockbench 4.10.4
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
-public class WoodenVillagerModel<T extends WoodenVillagerEntity> extends SinglePartEntityModel<T> {
+public class IntrovertedVillagerModel<T extends IntrovertedVillagerEntity> extends SinglePartEntityModel<T> {
     private final ModelPart body;
     private final ModelPart head;
 
-    public WoodenVillagerModel(ModelPart root) {
+    public IntrovertedVillagerModel(ModelPart root) {
         this.body = root.getChild("body");
         this.head = root.getChild("body").getChild("head");
     }
@@ -61,7 +61,7 @@ public class WoodenVillagerModel<T extends WoodenVillagerEntity> extends SingleP
     }
 
     @Override
-    public void setAngles(WoodenVillagerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(IntrovertedVillagerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(netHeadYaw, headPitch);
 
