@@ -1,7 +1,7 @@
 package net.pawel.villagermod;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -9,7 +9,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.pawel.villagermod.commands.CreateWallsCommand;
 import net.pawel.villagermod.commands.KillEntitiesCommand;
+import net.pawel.villagermod.commands.RemoveWallsCommand;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
@@ -31,7 +33,11 @@ public class VillagerMod implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
         ServerLifecycleEvents.SERVER_STOPPED.register(this::onServerStopped);
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> KillEntitiesCommand.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            KillEntitiesCommand.register(dispatcher);
+            CreateWallsCommand.register(dispatcher);
+            RemoveWallsCommand.register(dispatcher);
+        });
 
         ServerEntityEvents.ENTITY_LOAD.register(VillagerMod::preventSlimeSpawn);
     }
@@ -44,7 +50,7 @@ public class VillagerMod implements ModInitializer {
         enemySpawnScheduler.stop();
     }
 
-     private static void preventSlimeSpawn(Entity entity, ServerWorld world) {
+    private static void preventSlimeSpawn(Entity entity, ServerWorld world) {
         if (entity.getType() == EntityType.SLIME) {
             entity.remove(Entity.RemovalReason.DISCARDED);
         }
