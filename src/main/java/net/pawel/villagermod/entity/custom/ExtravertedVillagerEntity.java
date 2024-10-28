@@ -45,7 +45,7 @@ public class ExtravertedVillagerEntity extends VillagerAbstract {
         if (this.getWorld().isClient()) {
             super.setupAnimationStates();
         }
-        updateStressLevel();
+//        updateStressLevel();
     }
 
     private void updateStressLevel() {

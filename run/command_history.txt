@@ -1,6 +1,4 @@
 /summon
-/summon tutorialmod:porcupine
-/summon
 /summon villagermod:wooden_vindicator
 /summon villagermod:porcupine
 /summon
@@ -48,3 +46,5 @@
 /summon villagermod:introverted_villager
 /summon villagermod:extraverted_villager
 /summon villagermod:introverted_villager
+/killentities 100
+/killentities 10000
