@@ -19,6 +19,6 @@ public abstract class VindicatorMixin extends IllagerEntity {
 
     @Inject(method = "initGoals", at = @At("TAIL"))
     private void initGoals(CallbackInfo ci) {
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, VillagerAbstract.class, true));
+        this.targetSelector.add(1, new ActiveTargetGoal<>(this, VillagerAbstract.class, true));
     }
 }

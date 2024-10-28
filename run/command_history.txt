@@ -1,14 +1,6 @@
 /summon villagermod:diamond_villager
 /summon villagermod:wooden_villager
 /summon villagermod:diamond_villager
-/summon villagermod:wooden_villager
-/summon villagermod:diamond_villager
-/summon villagermod:wooden_villager
-/summon villagermod:diamond_villager
-/time set day
-/summon villagermod:diamond_villager
-/summon villagermod:wooden_villager
-/summon villagermod:diamond_villager
 /time set day
 /summon villagermod:diamond_villager
 /summon villagermod:diamond_villagers
@@ -48,3 +40,11 @@
 /removewalls 50 2 1
 /killentities
 /killentities 1000
+/summon minecraft:vindicator
+/summon villagermod:extraverted_villager
+/killentities 1000
+/summon villagermod:extraverted_villager
+/summon minecraft:villager
+/killentities 1000
+/summon villagermod:extraverted_villager
+/killentities 100
