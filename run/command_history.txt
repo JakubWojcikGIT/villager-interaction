@@ -1,10 +1,4 @@
 /summon villagermod:diamond_villager
-/summon villagermod:wooden_villager
-/summon villagermod:diamond_villager
-/time set day
-/summon villagermod:diamond_villager
-/summon villagermod:diamond_villagers
-/summon villagermod:diamond_villager
 /
 /summon villagermod:diamond_villager
 /time set day
@@ -48,3 +42,9 @@
 /killentities 1000
 /summon villagermod:extraverted_villager
 /killentities 100
+/stopspawning 0 -58 0
+/startspawning 13 -58 8
+/time set day
+/killentities 1000
+/kil
+/killentities 1000

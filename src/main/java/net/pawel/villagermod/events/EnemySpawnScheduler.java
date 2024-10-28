@@ -4,37 +4,45 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.VindicatorEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class EnemySpawnScheduler {
+    private final Map<BlockPos, ScheduledFuture<?>> spawnPoints = new HashMap<>();
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    private final Timer timer = new Timer();
+    public void start(ServerWorld world, BlockPos pos, int period) {
+        if (isSpawning(pos)) {
+            return;
+        }
 
-    public void start(World world) {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (world instanceof ServerWorld) {
-                    spawnEnemies((ServerWorld) world);
-                }
+        Runnable spawnTask = () -> {
+            int chunkX = pos.getX() >> 4;
+            int chunkZ = pos.getZ() >> 4;
+            if (world.isChunkLoaded(chunkX, chunkZ)) {
+                VindicatorEntity vindicator = new VindicatorEntity(EntityType.VINDICATOR, world);
+                vindicator.refreshPositionAndAngles(pos, 0.0F, 0.0F);
+                world.spawnEntity(vindicator);
             }
-        }, 0, 100000);
+        };
+
+        ScheduledFuture<?> future = scheduler.scheduleAtFixedRate(spawnTask, 0, period, TimeUnit.SECONDS);
+        spawnPoints.put(pos, future);
     }
 
-    private void spawnEnemies(ServerWorld world) {
-        BlockPos spawnPos = new BlockPos(world.getSpawnPos());
-        for (int i = 0; i < 5; i++) {
-            // spawn 5 enemies form standart minecraft entity
-            VindicatorEntity enemy = new VindicatorEntity(EntityType.VINDICATOR, world);
-            enemy.refreshPositionAndAngles(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
-            world.spawnEntity(enemy);
+    public void stop(BlockPos pos) {
+        ScheduledFuture<?> future = spawnPoints.remove(pos);
+        if (future != null) {
+            future.cancel(false);
         }
     }
 
-    public void stop() {
-        timer.cancel();
+    public boolean isSpawning(BlockPos pos) {
+        return spawnPoints.containsKey(pos);
     }
 }
