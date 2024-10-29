@@ -9,9 +9,9 @@ import net.pawel.villagermod.entity.client.*;
 public class VillagerModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        EntityRendererRegistry.register(ModEntities.DIAMOND_VILLAGER, ExtravertedVillagerRenderer::new);
+        EntityRendererRegistry.register(ModEntities.EXTRAVERTED_VILLAGER, ExtravertedVillagerRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.DIAMOND_VILLAGER, ExtravertedVillagerModel::getTexturedModelData);
-        EntityRendererRegistry.register(ModEntities.WOODEN_VILLAGER, IntrovertedVillagerRenderer::new);
+        EntityRendererRegistry.register(ModEntities.INTROVERTED_VILLAGER, IntrovertedVillagerRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.WOODEN_VILLAGER, IntrovertedVillagerModel::getTexturedModelData);
     }
 }

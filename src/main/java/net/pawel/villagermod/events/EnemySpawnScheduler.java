@@ -13,6 +13,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class EnemySpawnScheduler {
+    private final int NUMBER_OF_ENEMIES = 2;
     private final Map<BlockPos, ScheduledFuture<?>> spawnPoints = new HashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -25,9 +26,11 @@ public class EnemySpawnScheduler {
             int chunkX = pos.getX() >> 4;
             int chunkZ = pos.getZ() >> 4;
             if (world.isChunkLoaded(chunkX, chunkZ)) {
-                VindicatorEntity vindicator = new VindicatorEntity(EntityType.VINDICATOR, world);
-                vindicator.refreshPositionAndAngles(pos, 0.0F, 0.0F);
-                world.spawnEntity(vindicator);
+                for (int i = 0; i < NUMBER_OF_ENEMIES; i++) {
+                    VindicatorEntity vindicator = new VindicatorEntity(EntityType.VINDICATOR, world);
+                    vindicator.refreshPositionAndAngles(pos, 0.0F, 0.0F);
+                    world.spawnEntity(vindicator);
+                }
             }
         };
 

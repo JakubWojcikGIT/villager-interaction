@@ -10,11 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.pawel.villagermod.commands.CreateWallsCommand;
-import net.pawel.villagermod.commands.KillEntitiesCommand;
-import net.pawel.villagermod.commands.RemoveWallsCommand;
-import net.pawel.villagermod.commands.StartSpawningCommand;
-import net.pawel.villagermod.commands.StopSpawningCommand;
+import net.pawel.villagermod.commands.*;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
@@ -23,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class VillagerMod implements ModInitializer {
-    private static final int PERIOD = 60;
+    private static final int PERIOD = 240;
     public static final String MOD_ID = "villagermod";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static final EnemySpawnScheduler enemySpawnScheduler = new EnemySpawnScheduler();
@@ -31,8 +27,8 @@ public class VillagerMod implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Villager AI Mod initialized");
-        FabricDefaultAttributeRegistry.register(ModEntities.DIAMOND_VILLAGER, ExtravertedVillagerEntity.createDiamondVillagerAttributes());
-        FabricDefaultAttributeRegistry.register(ModEntities.WOODEN_VILLAGER, IntrovertedVillagerEntity.createWoodenVillagerAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.EXTRAVERTED_VILLAGER, ExtravertedVillagerEntity.createDiamondVillagerAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.INTROVERTED_VILLAGER, IntrovertedVillagerEntity.createWoodenVillagerAttributes());
 
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
         ServerLifecycleEvents.SERVER_STOPPED.register(this::onServerStopped);
@@ -43,19 +39,21 @@ public class VillagerMod implements ModInitializer {
             RemoveWallsCommand.register(dispatcher);
             StartSpawningCommand.register(dispatcher);
             StopSpawningCommand.register(dispatcher);
+            SummonIntrovertsCommand.register(dispatcher);
+            SummonExtravertsCommand.register(dispatcher);
         });
 
         ServerEntityEvents.ENTITY_LOAD.register(VillagerMod::preventSlimeSpawn);
     }
 
     private void onServerStarted(MinecraftServer server) {
-        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(13, -60, 8), PERIOD);
-        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(13, -60, 28), PERIOD);
+        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(15, -60, 18), PERIOD);
+        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(15, -60, 34), PERIOD);
     }
 
     private void onServerStopped(MinecraftServer server) {
-        enemySpawnScheduler.stop(new BlockPos(13, -60, 8));
-        enemySpawnScheduler.stop(new BlockPos(13, -60, 28));
+        enemySpawnScheduler.stop(new BlockPos(15, -60, 18));
+        enemySpawnScheduler.stop(new BlockPos(15, -60, 34));
     }
 
     private static void preventSlimeSpawn(Entity entity, ServerWorld world) {

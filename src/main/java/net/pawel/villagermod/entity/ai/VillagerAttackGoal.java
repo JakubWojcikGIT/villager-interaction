@@ -2,6 +2,7 @@ package net.pawel.villagermod.entity.ai;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.Hand;
 import net.pawel.villagermod.entity.custom.VillagerAbstract;

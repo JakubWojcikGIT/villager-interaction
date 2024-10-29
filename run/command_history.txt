@@ -1,50 +1,50 @@
-/summon villagermod:diamond_villager
-/
-/summon villagermod:diamond_villager
-/time set day
-/summon villagermod:diamond_villager
-/summon villagermod:wooden_villager
-/summon villagermod:extraverted_villager
 /summon villagermod:introverted_villager
-/summon villagermod:extraverted_villager
-/summon villagermod:introverted_villager
-/killentities 100
-/killentities 10000
-/createwalls 1 1 1 1 1 1
-/locate
-/locate structure
-/createwalls 1 -50 1 1 1 1
-/createwalls 1 1 1 -50 -50 -50
-/createwalls 1 1 1 1 -50 1
-/createwalls 1 1 1 1 -50 -20
-/createwalls 1 1 1 20 -20 -20
-/createwalls 1 1 1 2 2 4
-/createwalls 1 -50 1 2 2 4
-/createwalls 1 -50 -50 2 2 4
-/createwalls 4 4 4
-/createwalls 10 2 3
-/killentities
-/killentities 10000
+/killentities 1000
+/removewalls
 /removewalls 100 100 100
-/createwalls 50 2 20
-/removewalls 50 2 20
-/killentities 10000
-/createwalls 50 2 20
-/createwalls 49 2 1
-/removewalls 50 2 1
+/killentities 1000
+/createwalls 20 2 10
+/removewalls 20 2 10
+/createwalls 20 2 10
+/startspawning 22 -60 26 10
+/stopspawning 22 -60 26 10
+/stopspawning 22 -60 26
 /killentities
 /killentities 1000
-/summon minecraft:vindicator
-/summon villagermod:extraverted_villager
-/killentities 1000
-/summon villagermod:extraverted_villager
-/summon minecraft:villager
-/killentities 1000
-/summon villagermod:extraverted_villager
-/killentities 100
-/stopspawning 0 -58 0
-/startspawning 13 -58 8
 /time set day
+/killentities 10000
+/removewalls 100 20 30
+/killentities 100000
+/createwalls 30 2 10
+/removewalls 100 20 30
+/createwalls 30 2 20
+/removewalls 100 20 30
+/createwalls 30 2 15
+/summonextraverts 5
+/summonintroverts 5
 /killentities 1000
-/kil
-/killentities 1000
+/summonextraverts 5
+/summonintroverts 5
+/killentities 100
+/summonextraverts 5
+/summonintroverts
+/summonintroverts 5
+/killentities 10000000
+/time set day
+/summonextraverts 5
+/gamemode adventure
+/killentities 199
+/gamemode creative
+/summonextraverts 6
+/killentities
+/killentities 111
+/gamemode adventure
+/summonextraverts 1
+/gamemode creative
+/killentities 1111111111
+/killentities 111111
+/summonextraverts 5
+/killentities 111
+/summonextraverts
+/summonextraverts 5
+/summonintroverts 6
