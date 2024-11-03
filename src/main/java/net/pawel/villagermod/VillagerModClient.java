@@ -10,8 +10,10 @@ public class VillagerModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(ModEntities.EXTRAVERTED_VILLAGER, ExtravertedVillagerRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.DIAMOND_VILLAGER, ExtravertedVillagerModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.EXTRAVERTED_VILLAGER, ExtravertedVillagerModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.INTROVERTED_VILLAGER, IntrovertedVillagerRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.WOODEN_VILLAGER, IntrovertedVillagerModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.INTROVERTED_VILLAGER, IntrovertedVillagerModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.DUMMY_VILLAGER, DummyVillagerRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.DUMMY_VILLAGER, DummyVillagerModel::getTexturedModelData);
     }
 }

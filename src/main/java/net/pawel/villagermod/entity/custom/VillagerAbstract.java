@@ -7,10 +7,16 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.pawel.villagermod.entity.ModEntities;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class VillagerAbstract extends AnimalEntity {
-    protected int stressLevel = 0;
     protected int PERSONAL_SPACE_RADIUS = 3;
     protected int CROWD_THRESHOLD = 3;
 
@@ -62,13 +68,6 @@ public abstract class VillagerAbstract extends AnimalEntity {
         this.limbAnimator.updateLimbs(f, 0.2f);
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (this.getWorld().isClient()) {
-            setupAnimationStates();
-        }
-    }
 
     public void setAttacking(boolean attacking) {
         this.dataTracker.set(ATTACKING, attacking);
@@ -85,4 +84,9 @@ public abstract class VillagerAbstract extends AnimalEntity {
         this.dataTracker.startTracking(ATTACKING, false);
     }
 
+    @Nullable
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
+    }
 }

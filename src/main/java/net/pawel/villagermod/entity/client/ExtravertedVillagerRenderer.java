@@ -12,7 +12,7 @@ public class ExtravertedVillagerRenderer extends MobEntityRenderer<ExtravertedVi
     private static final Identifier TEXTURE = new Identifier(VillagerMod.MOD_ID, "textures/entity/diamond_villager.png");
 
     public ExtravertedVillagerRenderer(EntityRendererFactory.Context context) {
-        super(context, new ExtravertedVillagerModel<>(context.getPart(ModModelLayers.DIAMOND_VILLAGER)), 0.6f);
+        super(context, new ExtravertedVillagerModel<>(context.getPart(ModModelLayers.EXTRAVERTED_VILLAGER)), 0.6f);
     }
 
     @Override

@@ -1,50 +1,50 @@
-/summon villagermod:introverted_villager
-/killentities 1000
-/removewalls
-/removewalls 100 100 100
-/killentities 1000
-/createwalls 20 2 10
-/removewalls 20 2 10
-/createwalls 20 2 10
-/startspawning 22 -60 26 10
-/stopspawning 22 -60 26 10
-/stopspawning 22 -60 26
-/killentities
-/killentities 1000
-/time set day
-/killentities 10000
-/removewalls 100 20 30
-/killentities 100000
-/createwalls 30 2 10
-/removewalls 100 20 30
-/createwalls 30 2 20
-/removewalls 100 20 30
-/createwalls 30 2 15
-/summonextraverts 5
+/summon villagermod:extraverted_villager
+/killentities 2
+/summonextraverts 3
+/killentities 111
+/summonintroverts 1
 /summonintroverts 5
-/killentities 1000
-/summonextraverts 5
-/summonintroverts 5
-/killentities 100
-/summonextraverts 5
-/summonintroverts
-/summonintroverts 5
+/summonintroverts 10
+/summonextraverts 100
 /killentities 10000000
 /time set day
-/summonextraverts 5
-/gamemode adventure
-/killentities 199
-/gamemode creative
-/summonextraverts 6
-/killentities
+/killentities 10000000
+/killentities 11
 /killentities 111
-/gamemode adventure
 /summonextraverts 1
-/gamemode creative
-/killentities 1111111111
-/killentities 111111
-/summonextraverts 5
 /killentities 111
-/summonextraverts
-/summonextraverts 5
-/summonintroverts 6
+/summonextraverts 1
+/killentities 111
+/killentities 1222
+/summonextraverts 1
+/killentities
+/killentities 1
+/killentities 100000
+/killentities 1111
+/summonextraverts 1
+/killentities 1000
+/summonextraverts 2
+/killentities 111
+/summonextraverts 2
+/time set day
+/killentities 111
+/summonextraverts 2
+/killentities 111
+/summonextraverts 2
+/killentities 111
+/summonextraverts 2
+/killentities 11
+/summonextraverts 2
+/killentities 111
+/summonextraverts 1
+/killentities 11
+/summonextraverts 1
+/killentities 11
+/summonextraverts 1
+/killentities 11
+/summonextraverts 1
+/killentities 1111
+/summonextraverts 1
+/summon villagermod:dummy_villager
+/ki
+/killentities 1111

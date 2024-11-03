@@ -45,12 +45,12 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
     }
 
-    public static DefaultAttributeContainer.Builder createWoodenVillagerAttributes() {
+    public static DefaultAttributeContainer.Builder createIntrovertedVillagerAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 20);
     }
 
     @Override
@@ -59,16 +59,6 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
         if (this.getWorld().isClient()) {
             super.setupAnimationStates();
         }
-//        updateStressLevel();
-    }
-
-    private void updateStressLevel() {
-        if (VillagerUtils.isCrowded(this, this.getEntityWorld(), this.PERSONAL_SPACE_RADIUS, this.CROWD_THRESHOLD)) {
-            this.stressLevel++;
-        } else if (this.stressLevel > 0) {
-            this.stressLevel--;
-        }
-        System.out.println("Stress level (Introvert): " + this.stressLevel);
     }
 
     @Nullable

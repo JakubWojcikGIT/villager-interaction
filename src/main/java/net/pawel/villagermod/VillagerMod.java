@@ -12,6 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.pawel.villagermod.commands.*;
 import net.pawel.villagermod.entity.ModEntities;
+import net.pawel.villagermod.entity.custom.DummyVillager;
 import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
 import net.pawel.villagermod.events.EnemySpawnScheduler;
@@ -27,8 +28,9 @@ public class VillagerMod implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Villager AI Mod initialized");
-        FabricDefaultAttributeRegistry.register(ModEntities.EXTRAVERTED_VILLAGER, ExtravertedVillagerEntity.createDiamondVillagerAttributes());
-        FabricDefaultAttributeRegistry.register(ModEntities.INTROVERTED_VILLAGER, IntrovertedVillagerEntity.createWoodenVillagerAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.EXTRAVERTED_VILLAGER, ExtravertedVillagerEntity.createExtravertVillagerAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.INTROVERTED_VILLAGER, IntrovertedVillagerEntity.createIntrovertedVillagerAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.DUMMY_VILLAGER, DummyVillager.createDummyVillagerAttributes());
 
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
         ServerLifecycleEvents.SERVER_STOPPED.register(this::onServerStopped);

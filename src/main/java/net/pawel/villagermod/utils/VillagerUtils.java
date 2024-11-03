@@ -1,12 +1,22 @@
 package net.pawel.villagermod.utils;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.custom.VillagerAbstract;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VillagerUtils {
+    public static List<LivingEntity> getNearbyVillagers(Entity entity, World world, double radius) {
+        return world.getEntitiesByType(EntityType.VILLAGER, entity.getBoundingBox().expand(radius), e -> e != entity)
+                .stream()
+                .map(e -> (LivingEntity) e)
+                .collect(Collectors.toList());
+    }
 
     public static double distanceToSqr(VillagerAbstract villager1, VillagerAbstract villager2) {
         double distance = villager1.distanceTo(villager2);

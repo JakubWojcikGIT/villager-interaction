@@ -12,7 +12,7 @@ public class IntrovertedVillagerRenderer extends MobEntityRenderer<IntrovertedVi
     private static final Identifier TEXTURE = new Identifier(VillagerMod.MOD_ID, "textures/entity/wooden_villager.png");
 
     public IntrovertedVillagerRenderer(EntityRendererFactory.Context context) {
-        super(context, new IntrovertedVillagerModel<>(context.getPart(ModModelLayers.WOODEN_VILLAGER)), 0.6f);
+        super(context, new IntrovertedVillagerModel<>(context.getPart(ModModelLayers.INTROVERTED_VILLAGER)), 0.6f);
     }
 
     @Override
