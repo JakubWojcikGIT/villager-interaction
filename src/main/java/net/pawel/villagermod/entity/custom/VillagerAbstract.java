@@ -14,11 +14,17 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
+import net.pawel.villagermod.entity.ai.VillagerPairGoal;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class VillagerAbstract extends AnimalEntity {
     protected int PERSONAL_SPACE_RADIUS = 3;
     protected int CROWD_THRESHOLD = 3;
+    public static final Map<VillagerAbstract, VillagerAbstract> pairs = new HashMap<>();
+    private VillagerAbstract mate;
 
     private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState idleAnimationState = new AnimationState();
@@ -29,6 +35,16 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
     public VillagerAbstract(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.mate != null && !this.mate.isAlive()) {
+            pairs.remove(this);
+            pairs.remove(this.mate);
+            this.mate = null;
+        }
     }
 
     public boolean canSocializeWith(VillagerAbstract other) {
@@ -82,6 +98,14 @@ public abstract class VillagerAbstract extends AnimalEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACKING, false);
+    }
+
+    public VillagerAbstract getMate() {
+        return mate;
+    }
+
+    public void setMate(VillagerAbstract mate) {
+        this.mate = mate;
     }
 
     @Nullable

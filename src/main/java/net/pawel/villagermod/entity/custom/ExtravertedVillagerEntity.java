@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.ai.ExtrovertGroupSeekingGoal;
 import net.pawel.villagermod.entity.ai.VillagerAttackGoal;
+import net.pawel.villagermod.entity.ai.VillagerGroupSeekingGoal;
+import net.pawel.villagermod.entity.ai.VillagerPairGoal;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtravertedVillagerEntity extends VillagerAbstract {
@@ -34,6 +36,7 @@ public class ExtravertedVillagerEntity extends VillagerAbstract {
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
         this.goalSelector.add(7, new LookAroundGoal(this));
+        this.goalSelector.add(8, new VillagerPairGoal(this, 2D));
         this.targetSelector.add(1, (new RevengeGoal(this, VillagerAbstract.class)).setGroupRevenge());
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
 //        this.goalSelector.add(0, new VillagerBreedGoal(this, 1.0D));
