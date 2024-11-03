@@ -14,6 +14,7 @@ public class VillagerPairGoal extends Goal {
     private VillagerAbstract mate;
     private final World world;
 
+
     public VillagerPairGoal(VillagerAbstract villager, double speed) {
         this.villager = villager;
         this.speed = speed;

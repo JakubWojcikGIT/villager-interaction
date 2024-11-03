@@ -13,6 +13,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ai.ExtrovertGroupSeekingGoal;
 import net.pawel.villagermod.entity.ai.VillagerAttackGoal;
+import net.pawel.villagermod.entity.ai.VillagerBreedGoal;
 import net.pawel.villagermod.entity.ai.VillagerPairGoal;
 
 public class DummyVillager extends VillagerAbstract {
@@ -33,6 +34,7 @@ public class DummyVillager extends VillagerAbstract {
         this.targetSelector.add(1, (new RevengeGoal(this, VillagerAbstract.class)).setGroupRevenge());
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
         this.goalSelector.add(7, new VillagerPairGoal(this, 1D));
+        this.goalSelector.add(0, new VillagerBreedGoal(this, 1D));
     }
 
     @Override

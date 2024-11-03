@@ -1,15 +1,3 @@
-/time set day
-/killentities 111
-/summonextraverts 2
-/killentities 111
-/summonextraverts 2
-/killentities 111
-/summonextraverts 2
-/killentities 11
-/summonextraverts 2
-/killentities 111
-/summonextraverts 1
-/killentities 11
 /summonextraverts 1
 /killentities 11
 /summonextraverts 1
@@ -48,3 +36,15 @@
 /killentities 111
 /summon villagermod:dummy_villager
 /killentities 2
+/killentities 1111
+/summon villagermod:dummy_villager
+/killentities 1111
+/summon villagermod:dummy_villager
+/killentities 1111
+/summon villagermod:dummy_villager
+/time set day
+/summon villagermod:dummy_villager
+/killentities 11
+/killentities 111
+/summon villagermod:dummy_villager
+/killentities 11
