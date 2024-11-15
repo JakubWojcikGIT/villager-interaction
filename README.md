@@ -11,6 +11,8 @@ For now we add focus on adding features, later we will combine them to create mo
 - **Villagers fight**: Villagers can fight with enemy 
 - **Connecting villagers in pairs**: Villagers try to connect in paris. If one of the partner dies 
 - **Custom breeding**: Created breeding. Villagers that are in pair after cooldown create new child (we can make this more advanced)
+- **Villagers' traits:** the original Villagers have a random set of traits selected from pre-made sets, while already offspring have traits inherited from their parents
+- **Custom inheritance of traits:** children of villagers inherit traits from their parents in this way: the dominant trait is always transmitted and if the parents both have a recessive trait then the recessive trait is transmitted
 - **Created events**: Every x time y vindicators will spawn and attack villagers
 - **Custom commands**: Created commands that help manage experiments
 - **Vindicator mixin**: Injected code into vindicators that make them attack our villagers 
