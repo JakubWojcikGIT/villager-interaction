@@ -5,7 +5,6 @@ import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ai.goal.AnimalMateGoal;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -18,26 +17,75 @@ import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class VillagerAbstract extends AnimalEntity {
+    private static final Random random = new Random();
     protected int PERSONAL_SPACE_RADIUS = 3;
     protected int CROWD_THRESHOLD = 3;
     public static final Map<VillagerAbstract, VillagerAbstract> pairs = new HashMap<>();
     private VillagerAbstract mate;
     private int breedCooldown = 0;
 
+    public Trait getAggressionTrait() {
+        return aggressionTrait;
+    }
+
+    public Trait getAgilityTrait() {
+        return agilityTrait;
+    }
+
+    private Trait aggressionTrait;
+    private Trait agilityTrait;
+
+
+    public enum Trait {
+        PEACEFUL, TANKY, AGRESSIVE, AGILE
+    }
+
+    public enum TraitSet {
+        PEACEFUL_TANKY(Trait.PEACEFUL, Trait.TANKY),  // recesywne, dominujące
+        AGRESSIVE_AGILE(Trait.AGRESSIVE, Trait.AGILE), // dominujące, recesywne
+        AGRESSIVE_TANKY(Trait.AGRESSIVE, Trait.TANKY), // dominujące, dominujące
+        PEACEFUL_AGILE(Trait.PEACEFUL, Trait.AGILE);   // recesywne, recesywne
+
+        public final Trait aggressionTrait;
+        public final Trait agilityTrait;
+
+        TraitSet(Trait aggressionTrait, Trait agilityTrait) {
+            this.aggressionTrait = aggressionTrait;
+            this.agilityTrait = agilityTrait;
+        }
+    }
+
+    private void getTraits() {
+        TraitSet[] sets = TraitSet.values();
+        TraitSet selectedSet = sets[random.nextInt(sets.length)];
+        aggressionTrait = selectedSet.aggressionTrait;
+        agilityTrait = selectedSet.agilityTrait;
+    }
+
     private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
+    private static final TrackedData<Boolean> PRIMAL = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationTimeout = 0;
 
     public VillagerAbstract(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+        this.dataTracker.set(PRIMAL, true);
+        getTraits();
+    }
+
+    public boolean isPrimal() {
+        return this.dataTracker.get(PRIMAL);
+    }
+
+    public void setPrimal(boolean primal) {
+        this.dataTracker.set(PRIMAL, primal);
     }
 
     @Override
@@ -104,6 +152,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACKING, false);
+        this.dataTracker.startTracking(PRIMAL, false);
     }
 
     public VillagerAbstract getMate() {
@@ -116,9 +165,37 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
     @Nullable
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.DUMMY_VILLAGER.create(world);
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity mateEntity) {
+        VillagerAbstract child = ModEntities.DUMMY_VILLAGER.create(world);
+        if (child != null && mateEntity instanceof VillagerAbstract mate) {
+            child.setPrimal(false);
+
+            child.aggressionTrait = determineTraitInheritance(this.aggressionTrait, mate.aggressionTrait);
+            child.agilityTrait = determineTraitInheritance(this.agilityTrait, mate.agilityTrait);
+        }
+        return child;
     }
+
+    private Trait determineTraitInheritance(Trait parent1Trait, Trait parent2Trait) {
+        Map<Trait, Boolean> dominanceMap = Map.of(
+                Trait.PEACEFUL, false,
+                Trait.TANKY, true,
+                Trait.AGRESSIVE, true,
+                Trait.AGILE, false
+        );
+
+        boolean parent1Dominant = dominanceMap.get(parent1Trait);
+        boolean parent2Dominant = dominanceMap.get(parent2Trait);
+
+        if (parent1Dominant && !parent2Dominant) {
+            return parent1Trait;
+        } else if (!parent1Dominant && parent2Dominant) {
+            return parent2Trait;
+        }
+
+        return random.nextBoolean() ? parent1Trait : parent2Trait;
+    }
+
 
     public boolean isReadyToBreed() {
         return this.breedCooldown > 2000;
@@ -145,14 +222,12 @@ public abstract class VillagerAbstract extends AnimalEntity {
     }
 
     public void breed(ServerWorld world, AnimalEntity other, @Nullable PassiveEntity baby) {
-        Optional.ofNullable(this.getLovingPlayer()).or(() -> {
-            return Optional.ofNullable(other.getLovingPlayer());
-        }).ifPresent((player) -> {
+        Optional.ofNullable(this.getLovingPlayer()).or(() -> Optional.ofNullable(other.getLovingPlayer())).ifPresent((player) -> {
             player.incrementStat(Stats.ANIMALS_BRED);
             Criteria.BRED_ANIMALS.trigger(player, this, other, baby);
         });
-        this.setBreedingAge(6000);
-        other.setBreedingAge(6000);
+        this.setBreedingAge(100);
+        other.setBreedingAge(100);
         this.breedCooldown = 0;
         ((VillagerAbstract) other).breedCooldown = 0;
         world.sendEntityStatus(this, (byte)18);

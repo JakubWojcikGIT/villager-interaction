@@ -43,6 +43,7 @@ public class VillagerMod implements ModInitializer {
             StopSpawningCommand.register(dispatcher);
             SummonIntrovertsCommand.register(dispatcher);
             SummonExtravertsCommand.register(dispatcher);
+            ListEntitiesCommand.register(dispatcher);
         });
 
         ServerEntityEvents.ENTITY_LOAD.register(VillagerMod::preventSlimeSpawn);
