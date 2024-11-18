@@ -69,8 +69,10 @@ public class ListEntitiesCommand {
                     String isPrimal = villager.isPrimal() ? "true" : "false";
                     String aggressionTrait = villager.getAggressionTrait()==null ? "NaN" : villager.getAggressionTrait().toString();
                     String agilityTrait = villager.getAgilityTrait()==null ? "NaN" : villager.getAgilityTrait().toString();
-                    String entityInfo = String.format(" - %s has attributes: {ACTUAL HEALTH: %.1f, GENERIC_MOVEMENT_SPEED: %.2f, IS_PRIMAL: %s, AGGRESSION_TRAIT: %s, AGILITY TRAIT: %s}",
-                            capitalize(entityName), maxHealth, movementSpeed, isPrimal, aggressionTrait, agilityTrait);
+                    String resilienceTrait = villager.getResilienceTrait()==null ? "NaN" : villager.getResilienceTrait().toString();
+                    String strengthTrait = villager.getStrengthTrait()==null ? "NaN" : villager.getStrengthTrait().toString();
+                    String entityInfo = String.format(" - %s has attributes: {ACTUAL HEALTH: %.1f, GENERIC_MOVEMENT_SPEED: %.2f, IS_PRIMAL: %s, AGGRESSION_TRAIT: %s, AGILITY_TRAIT: %s, RESILIENCE_TRAIT: %s, STRENGTH_TRAIT: %s}",
+                            capitalize(entityName), maxHealth, movementSpeed, isPrimal, aggressionTrait, agilityTrait, resilienceTrait, strengthTrait);
                     player.sendMessage(Text.literal(entityInfo), false);
                     logContent.append(entityInfo).append("\n");
                 }

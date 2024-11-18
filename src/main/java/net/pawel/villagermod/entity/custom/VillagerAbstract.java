@@ -27,34 +27,53 @@ public abstract class VillagerAbstract extends AnimalEntity {
     private VillagerAbstract mate;
     private int breedCooldown = 0;
 
-    public Trait getAggressionTrait() {
-        return aggressionTrait;
-    }
-
-    public Trait getAgilityTrait() {
-        return agilityTrait;
-    }
-
     private Trait aggressionTrait;
     private Trait agilityTrait;
+    private Trait resilienceTrait;
+    private Trait strengthTrait;
+
+    public Trait getResilienceTrait() {return resilienceTrait;}
+    public Trait getStrengthTrait() {return strengthTrait;}
+    public Trait getAggressionTrait() {return aggressionTrait;}
+    public Trait getAgilityTrait() {return agilityTrait;}
+
+
 
 
     public enum Trait {
-        PEACEFUL, TANKY, AGRESSIVE, AGILE
+        PEACEFUL, TANKY, AGRESSIVE, AGILE,
+        HARDY, FRAGILE, STRONG, SWIFT
     }
 
     public enum TraitSet {
-        PEACEFUL_TANKY(Trait.PEACEFUL, Trait.TANKY),  // recesywne, dominujące
-        AGRESSIVE_AGILE(Trait.AGRESSIVE, Trait.AGILE), // dominujące, recesywne
-        AGRESSIVE_TANKY(Trait.AGRESSIVE, Trait.TANKY), // dominujące, dominujące
-        PEACEFUL_AGILE(Trait.PEACEFUL, Trait.AGILE);   // recesywne, recesywne
+        PEACEFUL_TANKY_HARDY_STRONG(Trait.PEACEFUL, Trait.TANKY, Trait.HARDY, Trait.STRONG),
+        PEACEFUL_TANKY_HARDY_SWIFT(Trait.PEACEFUL, Trait.TANKY, Trait.HARDY, Trait.SWIFT),
+        PEACEFUL_TANKY_FRAGILE_STRONG(Trait.PEACEFUL, Trait.TANKY, Trait.FRAGILE, Trait.STRONG),
+        PEACEFUL_TANKY_FRAGILE_SWIFT(Trait.PEACEFUL, Trait.TANKY, Trait.FRAGILE, Trait.SWIFT),
+        PEACEFUL_AGILE_HARDY_STRONG(Trait.PEACEFUL, Trait.AGILE, Trait.HARDY, Trait.STRONG),
+        PEACEFUL_AGILE_HARDY_SWIFT(Trait.PEACEFUL, Trait.AGILE, Trait.HARDY, Trait.SWIFT),
+        PEACEFUL_AGILE_FRAGILE_STRONG(Trait.PEACEFUL, Trait.AGILE, Trait.FRAGILE, Trait.STRONG),
+        PEACEFUL_AGILE_FRAGILE_SWIFT(Trait.PEACEFUL, Trait.AGILE, Trait.FRAGILE, Trait.SWIFT),
+        AGRESSIVE_TANKY_HARDY_STRONG(Trait.AGRESSIVE, Trait.TANKY, Trait.HARDY, Trait.STRONG),
+        AGRESSIVE_TANKY_HARDY_SWIFT(Trait.AGRESSIVE, Trait.TANKY, Trait.HARDY, Trait.SWIFT),
+        AGRESSIVE_TANKY_FRAGILE_STRONG(Trait.AGRESSIVE, Trait.TANKY, Trait.FRAGILE, Trait.STRONG),
+        AGRESSIVE_TANKY_FRAGILE_SWIFT(Trait.AGRESSIVE, Trait.TANKY, Trait.FRAGILE, Trait.SWIFT),
+        AGRESSIVE_AGILE_HARDY_STRONG(Trait.AGRESSIVE, Trait.AGILE, Trait.HARDY, Trait.STRONG),
+        AGRESSIVE_AGILE_HARDY_SWIFT(Trait.AGRESSIVE, Trait.AGILE, Trait.HARDY, Trait.SWIFT),
+        AGRESSIVE_AGILE_FRAGILE_STRONG(Trait.AGRESSIVE, Trait.AGILE, Trait.FRAGILE, Trait.STRONG),
+        AGRESSIVE_AGILE_FRAGILE_SWIFT(Trait.AGRESSIVE, Trait.AGILE, Trait.FRAGILE, Trait.SWIFT);
+
 
         public final Trait aggressionTrait;
         public final Trait agilityTrait;
+        public final Trait resilienceTrait;
+        public final Trait strengthTrait;
 
-        TraitSet(Trait aggressionTrait, Trait agilityTrait) {
+        TraitSet(Trait aggressionTrait, Trait agilityTrait, Trait resilienceTrait, Trait strengthTrait) {
             this.aggressionTrait = aggressionTrait;
             this.agilityTrait = agilityTrait;
+            this.resilienceTrait = resilienceTrait;
+            this.strengthTrait = strengthTrait;
         }
     }
 
@@ -63,6 +82,8 @@ public abstract class VillagerAbstract extends AnimalEntity {
         TraitSet selectedSet = sets[random.nextInt(sets.length)];
         aggressionTrait = selectedSet.aggressionTrait;
         agilityTrait = selectedSet.agilityTrait;
+        resilienceTrait = selectedSet.resilienceTrait;
+        strengthTrait = selectedSet.strengthTrait;
     }
 
     private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -172,6 +193,8 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
             child.aggressionTrait = determineTraitInheritance(this.aggressionTrait, mate.aggressionTrait);
             child.agilityTrait = determineTraitInheritance(this.agilityTrait, mate.agilityTrait);
+            child.resilienceTrait = determineTraitInheritance(this.resilienceTrait, mate.resilienceTrait);
+            child.strengthTrait = determineTraitInheritance(this.strengthTrait, mate.strengthTrait);
         }
         return child;
     }
@@ -181,7 +204,11 @@ public abstract class VillagerAbstract extends AnimalEntity {
                 Trait.PEACEFUL, false,
                 Trait.TANKY, true,
                 Trait.AGRESSIVE, true,
-                Trait.AGILE, false
+                Trait.AGILE, false,
+                Trait.HARDY, true,
+                Trait.FRAGILE, false,
+                Trait.STRONG, true,
+                Trait.SWIFT, false
         );
 
         boolean parent1Dominant = dominanceMap.get(parent1Trait);
