@@ -1,5 +1,7 @@
 package net.pawel.villagermod.commands;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -21,9 +23,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ListEntitiesCommand {
+
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("listentities")
@@ -50,44 +57,59 @@ public class ListEntitiesCommand {
 
         List<Entity> entities = world.getEntitiesByClass(Entity.class, box, entity -> true);
 
-        StringBuilder logContent = new StringBuilder();
+        Map<String, Object> logContent = new HashMap<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         if (entities.isEmpty()) {
             player.sendMessage(Text.literal("Brak stworzeń w promieniu " + radius + " kratek."), false);
-            logContent.append("Brak stworzeń w promieniu ").append(radius).append(" kratek.\n");
+            logContent.put("message", "Brak stworzeń w promieniu " + radius + " kratek.");
         } else {
             player.sendMessage(Text.literal("Stworzenia w promieniu " + radius + " kratek:"), false);
-            logContent.append("Stworzenia w promieniu ").append(radius).append(" kratek:\n");
+            logContent.put("message", "Stworzenia w promieniu " + radius + " kratek:");
+            List<Map<String, Object>> villagersInfo = new ArrayList<>();
 
             for (Entity entity : entities) {
                 if (entity instanceof VillagerAbstract villager) {
                     String entityName = villager.getType().getTranslationKey().strip().replace("entity.villagermod.", "");
 
-                    double maxHealth = villager.getHealth();
-                    double movementSpeed = villager.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-                    String isPrimal = villager.isPrimal() ? "true" : "false";
-                    String aggressionTrait = villager.getAggressionTrait()==null ? "NaN" : villager.getAggressionTrait().toString();
-                    String agilityTrait = villager.getAgilityTrait()==null ? "NaN" : villager.getAgilityTrait().toString();
-                    String resilienceTrait = villager.getResilienceTrait()==null ? "NaN" : villager.getResilienceTrait().toString();
-                    String strengthTrait = villager.getStrengthTrait()==null ? "NaN" : villager.getStrengthTrait().toString();
-                    String entityInfo = String.format(" - %s has attributes: {ACTUAL HEALTH: %.1f, GENERIC_MOVEMENT_SPEED: %.2f, IS_PRIMAL: %s, AGGRESSION_TRAIT: %s, AGILITY_TRAIT: %s, RESILIENCE_TRAIT: %s, STRENGTH_TRAIT: %s}",
-                            capitalize(entityName), maxHealth, movementSpeed, isPrimal, aggressionTrait, agilityTrait, resilienceTrait, strengthTrait);
+                    Map<String, Object> villagerAttributes = new HashMap<>();
+                    villagerAttributes.put("name", capitalize(entityName));
+                    villagerAttributes.put("health", villager.getHealth());
+                    villagerAttributes.put("maxHealth", villager.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH));
+                    villagerAttributes.put("armor", villager.getAttributeValue(EntityAttributes.GENERIC_ARMOR));
+                    villagerAttributes.put("attackDamage", villager.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE));
+                    villagerAttributes.put("movementSpeed", villager.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+                    villagerAttributes.put("attackSpeed", villager.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED));
+                    villagerAttributes.put("attackKnockback", villager.getAttributeValue(EntityAttributes.GENERIC_ATTACK_KNOCKBACK));
+                    villagerAttributes.put("followRange", villager.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE));
+                    villagerAttributes.put("knockbackResistance", villager.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
+                    villagerAttributes.put("scale", villager.getScaleFactor());
+                    villagerAttributes.put("isPrimal", villager.isPrimal());
+                    villagerAttributes.put("aggressionTrait", (villager.getAggressionTrait() != null) ? villager.getAggressionTrait().toString() : "NaN");
+                    villagerAttributes.put("agilityTrait", (villager.getAgilityTrait() != null) ? villager.getAgilityTrait().toString() : "NaN");
+                    villagerAttributes.put("resilienceTrait", (villager.getResilienceTrait() != null) ? villager.getResilienceTrait().toString() : "NaN");
+                    villagerAttributes.put("strengthTrait", (villager.getStrengthTrait() != null) ? villager.getStrengthTrait().toString() : "NaN");
+
+                    villagersInfo.add(villagerAttributes);
+
+                    String entityInfo = String.format(" - %s has attributes: %s",
+                            capitalize(entityName), gson.toJson(villagerAttributes));
+
                     player.sendMessage(Text.literal(entityInfo), false);
-                    logContent.append(entityInfo).append("\n");
                 }
             }
+            logContent.put("villagers", villagersInfo);
         }
 
         if (logToFile) {
             String timestamp = LocalDateTime.now().format(formatter);
-            logContent.insert(0, "Data: " + timestamp + "\n");
-            saveLogToFile(logContent.toString());
+            logContent.put("timestamp", timestamp);
+            saveLogToFile(gson.toJson(logContent));
         }
     }
 
     private static void saveLogToFile(String content) {
-        Path logPath = Paths.get("../src/main/java/net/pawel/villagermod/logs/entities_log.txt");
+        Path logPath = Paths.get("../src/main/java/net/pawel/villagermod/logs/entities_log.json");
         File logFile = logPath.toFile();
 
         File logDirectory = logFile.getParentFile();
