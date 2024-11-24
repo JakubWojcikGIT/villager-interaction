@@ -1,50 +1,50 @@
-/summonextraverts 1
-/killentities 11
-/summonextraverts 1
-/killentities 11
-/summonextraverts 1
-/killentities 1111
-/summonextraverts 1
-/summon villagermod:dummy_villager
-/ki
-/killentities 1111
-/summon villagermod:dummy_villager
-/killentities 1111
-/summon villagermod:dummy_villager
+/startspawning -15 -60 2 10
+/startspawning -15 -60 4 5
+/stopspawning -15 -60 4
 /killentities 111
+/createwalls 30 2 1
+/removewalls 30 2 1
 /summon villagermod:dummy_villager
-/killentities 111
-/summon villagermod:dummy_villager
-/killentities 111
-/summon villagermod:dummy_villager
-/summon villagermod:dummy_villager\
-/summon villagermod:dummy_villager
+/listentities 10 true
 /time set day
-/summon villagermod:dummy_villager
-/killentities 1
-/summon villagermod:dummy_villager
-/killentities 111
-/summon villagermod:dummy_villager
-/killentities 111
-/summon villagermod:dummy_villager
-/killentities 2
-/summon villagermod:dummy_villager
-/killentities 111
-/summon villagermod:dummy_villager
-/killentities 111
-/summon villagermod:dummy_villager
-/killentities 111
-/summon villagermod:dummy_villager
-/killentities 2
 /killentities 1111
 /summon villagermod:dummy_villager
-/killentities 1111
+/listentities
+/listentities 10 true
+/killentities
+/killentities 22222
 /summon villagermod:dummy_villager
-/killentities 1111
-/summon villagermod:dummy_villager
+/killentities 111
+/summonintroverts 10
+/summonintroverts 10d
+/summonintroverts 10
+/summonextraverts 50
+/killentities 111
+/summonintroverts 1
+/summonintroverts 12
+/killentities 111
+/summonintroverts 1
+/summonintroverts 10
+/summonextraverts 11
+/killentities 111
+/summonintroverts 1
+/killentities 111
+/summonintroverts 1
+/killentities 111
+/set
 /time set day
-/summon villagermod:dummy_villager
-/killentities 11
+/summonintroverts 1
+/summonintroverts 11
+/summonintroverts 40
 /killentities 111
-/summon villagermod:dummy_villager
-/killentities 11
+/summonintroverts 1
+/killentities 111
+/summonintroverts 1
+/killentities 111
+/summonintroverts 1
+/summonintroverts 3
+/killentities 111
+/summonintroverts 3
+/killentities 3
+/summonintroverts 1
+/summonintroverts 3

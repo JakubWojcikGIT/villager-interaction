@@ -15,17 +15,21 @@ import net.minecraft.stat.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
+import net.pawel.villagermod.utils.VillagerUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public abstract class VillagerAbstract extends AnimalEntity {
     private static final Random random = new Random();
-    protected int PERSONAL_SPACE_RADIUS = 3;
-    protected int CROWD_THRESHOLD = 3;
+    final public static int PERSONAL_SPACE_RADIUS = 3;
+    final public static int CROWD_THRESHOLD = 3;
     public static final Map<VillagerAbstract, VillagerAbstract> pairs = new HashMap<>();
     private VillagerAbstract mate;
     private int breedCooldown = 0;
+    protected int socialBattery = 500;
+    protected int previousCrowdSize = 0;
+
 
     private Trait aggressionTrait;
     private Trait agilityTrait;
@@ -113,13 +117,15 @@ public abstract class VillagerAbstract extends AnimalEntity {
     public void tick() {
         super.tick();
         System.out.println("VillagerAbstract tick " + breedCooldown);
+        System.out.println("Villager is crowded: " + VillagerUtils.isCrowded(this, PERSONAL_SPACE_RADIUS, CROWD_THRESHOLD));
         if (this.mate != null && !this.mate.isAlive()) {
             pairs.remove(this);
             pairs.remove(this.mate);
             this.mate = null;
         }
 
-            breedCooldown++;
+        breedCooldown++;
+        System.out.println(socialBattery);
     }
 
     public boolean canSocializeWith(VillagerAbstract other) {
@@ -128,14 +134,14 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
     protected void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationTimeout = random.nextInt(40) + 80;
             this.idleAnimationState.start(this.age);
         } else {
             --this.idleAnimationTimeout;
         }
 
         if (this.attackAnimationTimeout <= 0) {
-            this.attackAnimationTimeout = this.random.nextInt(40) + 80;
+            this.attackAnimationTimeout = random.nextInt(40) + 80;
             this.attackAnimationState.start(this.age);
         } else {
             --this.attackAnimationTimeout;

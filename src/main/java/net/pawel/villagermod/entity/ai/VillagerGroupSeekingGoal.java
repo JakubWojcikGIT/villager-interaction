@@ -18,11 +18,11 @@ public class VillagerGroupSeekingGoal extends Goal {
     private final double speed;
     protected final int personalSpaceRadius;
 
-    public VillagerGroupSeekingGoal(VillagerAbstract villager, double speed, int personalSpaceRadius) {
+    public VillagerGroupSeekingGoal(VillagerAbstract villager, double speed) {
         this.villager = villager;
         this.world = villager.getWorld();
         this.speed = speed;
-        this.personalSpaceRadius = personalSpaceRadius;
+        this.personalSpaceRadius = VillagerAbstract.PERSONAL_SPACE_RADIUS;
         this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
     }
 
