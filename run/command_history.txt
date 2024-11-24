@@ -1,6 +1,3 @@
-/startspawning -15 -60 2 10
-/startspawning -15 -60 4 5
-/stopspawning -15 -60 4
 /killentities 111
 /createwalls 30 2 1
 /removewalls 30 2 1
@@ -48,3 +45,6 @@
 /killentities 3
 /summonintroverts 1
 /summonintroverts 3
+/time set day
+/killentities 1000
+/summonintroverts 1

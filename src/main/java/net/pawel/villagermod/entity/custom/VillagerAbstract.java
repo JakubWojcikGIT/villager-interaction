@@ -116,16 +116,18 @@ public abstract class VillagerAbstract extends AnimalEntity {
     @Override
     public void tick() {
         super.tick();
-        System.out.println("VillagerAbstract tick " + breedCooldown);
-        System.out.println("Villager is crowded: " + VillagerUtils.isCrowded(this, PERSONAL_SPACE_RADIUS, CROWD_THRESHOLD));
         if (this.mate != null && !this.mate.isAlive()) {
             pairs.remove(this);
             pairs.remove(this.mate);
             this.mate = null;
         }
 
-        breedCooldown++;
-        System.out.println(socialBattery);
+        // Sigmoid function to adjust breedCooldown based on socialBattery
+        double sigmoidFactor = 1 / (1 + Math.exp(-0.1 * (socialBattery - 500)));
+        breedCooldown += (int) (sigmoidFactor * 10);
+        System.out.println("Social battery: " + socialBattery);
+        System.out.println("VillagerAbstract tick " + breedCooldown);
+        System.out.println("Villager is crowded: " + VillagerUtils.isCrowded(this, PERSONAL_SPACE_RADIUS, CROWD_THRESHOLD));
     }
 
     public boolean canSocializeWith(VillagerAbstract other) {
@@ -231,7 +233,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
 
     public boolean isReadyToBreed() {
-        return this.breedCooldown > 2000;
+        return this.breedCooldown > 5000;
     }
 
     public boolean canBreedWith(AnimalEntity other) {
@@ -247,7 +249,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
     public void breed(ServerWorld world, AnimalEntity other) {
         PassiveEntity passiveEntity = this.createChild(world, other);
         if (passiveEntity != null) {
-            passiveEntity.setBaby(true);
+            passiveEntity.setBaby(false);
             passiveEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
             this.breed(world, other, passiveEntity);
             world.spawnEntityAndPassengers(passiveEntity);

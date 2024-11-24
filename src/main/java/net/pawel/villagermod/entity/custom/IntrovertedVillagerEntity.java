@@ -13,11 +13,8 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.pawel.villagermod.entity.ai.IntrovertGroupSeekingGoal;
-import net.pawel.villagermod.entity.ai.VillagerAttackGoal;
-import net.pawel.villagermod.entity.ai.VillagerAvoidCrowdGoal;
+import net.pawel.villagermod.entity.ai.*;
 import net.pawel.villagermod.entity.ModEntities;
-import net.pawel.villagermod.entity.ai.VillagerBreedGoal;
 import net.pawel.villagermod.utils.VillagerUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +41,7 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
 
         this.targetSelector.add(1, (new RevengeGoal(this, VillagerAbstract.class)).setGroupRevenge());
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
+        this.goalSelector.add(7, new VillagerPairGoal(this, 1D));
         this.goalSelector.add(0, new VillagerBreedGoal(this, 1D));
     }
 
