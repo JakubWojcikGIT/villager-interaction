@@ -20,7 +20,6 @@ public class KillEntitiesCommand {
                             ServerPlayerEntity player = source.getPlayer();
                             if (player != null) {
                                 Box box = new Box(player.getBlockPos()).expand(radius);
-                                int killedEntities = player.getWorld().getEntitiesByClass(net.minecraft.entity.Entity.class, box, entity -> !(entity instanceof ServerPlayerEntity)).size();
                                 player.getWorld().getEntitiesByClass(net.minecraft.entity.Entity.class, box, entity -> !(entity instanceof ServerPlayerEntity)).forEach(Entity::kill);
                             }
                             return 1;

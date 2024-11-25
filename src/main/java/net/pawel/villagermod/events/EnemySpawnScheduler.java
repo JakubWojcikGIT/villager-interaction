@@ -13,7 +13,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class EnemySpawnScheduler {
-    private final int NUMBER_OF_ENEMIES = 5;
+    private final int NUMBER_OF_ENEMIES = 3;
     private final Map<BlockPos, ScheduledFuture<?>> spawnPoints = new HashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 

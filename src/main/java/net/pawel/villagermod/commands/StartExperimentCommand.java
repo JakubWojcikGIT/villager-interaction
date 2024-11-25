@@ -14,9 +14,9 @@ import net.pawel.villagermod.events.EnemySpawnScheduler;
 
 public class StartExperimentCommand {
     private static final EnemySpawnScheduler enemySpawnScheduler = new EnemySpawnScheduler();
-    private static final int RECTANGLE_LENGTH = 15;
+    private static final int RECTANGLE_LENGTH = 10;
     private static final int RECTANGLE_HEIGHT = 2;
-    private static final int RECTANGLE_WIDTH = 35;
+    private static final int RECTANGLE_WIDTH = 20;
     private static final int SEPARATION = 10;
     private static final int NUMBER_OF_VILLAGERS = 5;
 
@@ -75,7 +75,7 @@ public class StartExperimentCommand {
     private static void summonExtroverts(ServerWorld world, BlockPos pos) {
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             ExtravertedVillagerEntity extrovert = new ExtravertedVillagerEntity(ModEntities.EXTRAVERTED_VILLAGER, world);
-            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH) - 2, 1, world.random.nextInt(RECTANGLE_WIDTH) - 2);
+            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 2), 1, world.random.nextInt(RECTANGLE_WIDTH - 2));
             extrovert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
             world.spawnEntity(extrovert);
         }
@@ -84,7 +84,7 @@ public class StartExperimentCommand {
     private static void summonIntroverts(ServerWorld world, BlockPos pos) {
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             IntrovertedVillagerEntity introvert = new IntrovertedVillagerEntity(ModEntities.INTROVERTED_VILLAGER, world);
-            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH) - 2, 1, world.random.nextInt(RECTANGLE_WIDTH) - 2);
+            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 2), 1, world.random.nextInt(RECTANGLE_WIDTH - 2));
             introvert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
             world.spawnEntity(introvert);
         }

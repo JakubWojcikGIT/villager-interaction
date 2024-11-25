@@ -34,10 +34,11 @@ public class ExtravertedVillagerEntity extends VillagerAbstract {
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        this.goalSelector.add(8, new VillagerPairGoal(this, 2D));
+        this.goalSelector.add(0, new VillagerPairGoal(this, 1D)); // Ensure unique priority
+        this.goalSelector.add(0, new VillagerBreedGoal(this, 1D)); // Ensure unique priority
+
         this.targetSelector.add(1, (new RevengeGoal(this, VillagerAbstract.class)).setGroupRevenge());
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
-        this.goalSelector.add(0, new VillagerBreedGoal(this, 1D));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
     }
 
     @Override
