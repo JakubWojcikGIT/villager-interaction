@@ -122,7 +122,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
             this.mate = null;
         }
 
-        // Sigmoid function to adjust breedCooldown based on socialBattery
+        // Sigmoid function to adjust breedCooldown based on socialBatter
         double sigmoidFactor = 1 / (1 + Math.exp(-0.1 * (socialBattery - 500)));
         breedCooldown += (int) (sigmoidFactor * 10);
         System.out.println("Social battery: " + socialBattery);

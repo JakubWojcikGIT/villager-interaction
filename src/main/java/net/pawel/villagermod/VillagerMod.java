@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class VillagerMod implements ModInitializer {
-    private static final int PERIOD = 240;
     public static final String MOD_ID = "villagermod";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static final EnemySpawnScheduler enemySpawnScheduler = new EnemySpawnScheduler();
@@ -44,19 +43,20 @@ public class VillagerMod implements ModInitializer {
             SummonIntrovertsCommand.register(dispatcher);
             SummonExtravertsCommand.register(dispatcher);
             ListEntitiesCommand.register(dispatcher);
+            StartExperimentCommand.register(dispatcher);
         });
 
         ServerEntityEvents.ENTITY_LOAD.register(VillagerMod::preventSlimeSpawn);
     }
 
     private void onServerStarted(MinecraftServer server) {
-        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(15, -60, 18), PERIOD);
-        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(15, -60, 34), PERIOD);
+//        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(15, -60, 18), PERIOD);
+//        enemySpawnScheduler.start(server.getOverworld(), new BlockPos(15, -60, 34), PERIOD);
     }
 
     private void onServerStopped(MinecraftServer server) {
-        enemySpawnScheduler.stop(new BlockPos(15, -60, 18));
-        enemySpawnScheduler.stop(new BlockPos(15, -60, 34));
+//        enemySpawnScheduler.stop(new BlockPos(15, -60, 18));
+//        enemySpawnScheduler.stop(new BlockPos(15, -60, 34));
     }
 
     private static void preventSlimeSpawn(Entity entity, ServerWorld world) {

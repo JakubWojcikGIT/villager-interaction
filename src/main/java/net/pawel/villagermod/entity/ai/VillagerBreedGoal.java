@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.goal.Goal.Control;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import net.pawel.villagermod.utils.VillagerUtils;
 import org.jetbrains.annotations.Nullable;
 import net.pawel.villagermod.entity.custom.VillagerAbstract;
 
