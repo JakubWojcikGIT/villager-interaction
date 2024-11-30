@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "net/pawel/villagermod/mixin/VindicatorMixin": {
+      "initGoals": "Lnet/minecraft/class_1632;method_5959()V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "net/pawel/villagermod/mixin/VindicatorMixin": {
+        "initGoals": "Lnet/minecraft/class_1632;method_5959()V"
+      }
+    }
+  }
+}

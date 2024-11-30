@@ -1,0 +1,16 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2024-09-07 00:43:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:cherry_grove": "2024-09-07 00:43:57 +0200",
+      "minecraft:meadow": "2024-09-07 00:44:37 +0200"
+    },
+    "done": false
+  },
+  "DataVersion": 3578
+}

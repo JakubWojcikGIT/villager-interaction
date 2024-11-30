@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "villagermod",
+	"version": "${version}",
+	"name": "Villager AI Mod",
+	"description": "This is a Mod that modifies ai",
+	"authors": [
+		"pawel",
+		"jakub"
+	],
+	"contact": {
+	},
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.pawel.villagermod.VillagerMod"
+		],
+		"client": [
+			"net.pawel.villagermod.VillagerModClient"
+		],
+		"fabric-datagen": [
+			"net.pawel.villagermod.VillagerModDataGenerator"
+		]
+	},
+	"mixins": [
+		"villagermod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": ">=1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.pawel.villagermod.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "VindicatorMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
