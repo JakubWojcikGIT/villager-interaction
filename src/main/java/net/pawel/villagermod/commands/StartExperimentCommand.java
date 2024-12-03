@@ -10,15 +10,17 @@ import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
-import net.pawel.villagermod.events.EnemySpawnScheduler;
+import net.pawel.villagermod.events.*;
 
 public class StartExperimentCommand {
     private static final EnemySpawnScheduler enemySpawnScheduler = new EnemySpawnScheduler();
+    private static final EntityLogScheduler entityLogScheduler = new EntityLogScheduler();
     private static final int RECTANGLE_LENGTH = 10;
     private static final int RECTANGLE_HEIGHT = 2;
     private static final int RECTANGLE_WIDTH = 20;
     private static final int SEPARATION = 10;
     private static final int NUMBER_OF_VILLAGERS = 5;
+    private static final int PERIOD = 40;
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("start")
@@ -40,6 +42,8 @@ public class StartExperimentCommand {
         summonIntroverts(world, pos.add(RECTANGLE_LENGTH + SEPARATION, 0, 0));
 
         startSpawningVindicators(world, pos);
+
+        startLogging(world, pos);
     }
 
     private static void createWalls(ServerWorld world, BlockPos startPos) {
@@ -75,7 +79,7 @@ public class StartExperimentCommand {
     private static void summonExtroverts(ServerWorld world, BlockPos pos) {
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             ExtravertedVillagerEntity extrovert = new ExtravertedVillagerEntity(ModEntities.EXTRAVERTED_VILLAGER, world);
-            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 2), 1, world.random.nextInt(RECTANGLE_WIDTH - 2));
+            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
             extrovert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
             world.spawnEntity(extrovert);
         }
@@ -84,7 +88,7 @@ public class StartExperimentCommand {
     private static void summonIntroverts(ServerWorld world, BlockPos pos) {
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             IntrovertedVillagerEntity introvert = new IntrovertedVillagerEntity(ModEntities.INTROVERTED_VILLAGER, world);
-            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 2), 1, world.random.nextInt(RECTANGLE_WIDTH - 2));
+            BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
             introvert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
             world.spawnEntity(introvert);
         }
@@ -94,7 +98,11 @@ public class StartExperimentCommand {
         BlockPos firstRectanglePos = pos.add(RECTANGLE_LENGTH / 2, 1, RECTANGLE_WIDTH / 2);
         BlockPos secondRectanglePos = pos.add(RECTANGLE_LENGTH + SEPARATION + RECTANGLE_LENGTH / 2, 1, RECTANGLE_WIDTH / 2);
 
-        enemySpawnScheduler.start(world, firstRectanglePos, 60);
-        enemySpawnScheduler.start(world, secondRectanglePos, 60);
+        enemySpawnScheduler.start(world, firstRectanglePos, PERIOD);
+        enemySpawnScheduler.start(world, secondRectanglePos, PERIOD);
+    }
+
+    private static void startLogging(ServerWorld world, BlockPos pos) {
+        entityLogScheduler.start(world, pos, PERIOD);
     }
 }

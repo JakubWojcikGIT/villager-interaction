@@ -42,8 +42,6 @@ public abstract class VillagerAbstract extends AnimalEntity {
     public Trait getAgilityTrait() {return agilityTrait;}
 
 
-
-
     public enum Trait {
         PEACEFUL, TANKY, AGRESSIVE, AGILE,
         HARDY, FRAGILE, STRONG, SWIFT
@@ -125,9 +123,6 @@ public abstract class VillagerAbstract extends AnimalEntity {
         // Sigmoid function to adjust breedCooldown based on socialBatter
         double sigmoidFactor = 1 / (1 + Math.exp(-0.1 * (socialBattery - 500)));
         breedCooldown += (int) (sigmoidFactor * 10);
-        System.out.println("Social battery: " + socialBattery);
-        System.out.println("VillagerAbstract tick " + breedCooldown);
-        System.out.println("Villager is crowded: " + VillagerUtils.isCrowded(this, PERSONAL_SPACE_RADIUS, CROWD_THRESHOLD));
     }
 
     public boolean canSocializeWith(VillagerAbstract other) {
@@ -271,4 +266,5 @@ public abstract class VillagerAbstract extends AnimalEntity {
         }
 
     }
+
 }

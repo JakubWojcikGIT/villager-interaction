@@ -68,7 +68,7 @@ public class ExtravertedVillagerEntity extends VillagerAbstract {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 50);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 40);
     }
 
     @Nullable

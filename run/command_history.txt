@@ -1,50 +1,50 @@
-/time set day
-/start
-/killentities
-/killentities 111
-/start
-/removewalls 1000 100 100
-/start
-/killentities 1111
-/start
-/killentities 1111
-/removewalls 1000 100 100
-/removewalls 10000 1000 1000
-/removewalls 1000 100 100
-/start
-/killentities 1111
-/removewalls 1000 100 100
-/start
-/removewalls 1000 100 100
-/killentities 1111
-/start
-/killentities 1111
-/removewalls 1000 100 100
-/start
-/killentities 1111
-/removewalls 1000 100 100
-/start
-/removewalls 1000 100 100
-/killentities 111
-/start
-/killandremovewalls 1111
-/killandremovewalls 111
-/killandremovewalls 11
-/killandremovewalls 50
-/start
-/killandremovewalls 50
-/start
-/time set day
 /killandremovewalls
-/killandremovewalls 34
-/summonextraverts 3
-/summon villagermod:dummy_villager
-/killandremovewalls 34
-/summonextraverts 2
+/killandremovewalls 23
+/start
 /killandremovewalls 34
 /start
-/summonextraverts 3
-/summonintroverts 5
+/killandremovewalls 23
+/start
+/killandremovewalls 23
+/start
+/killandremovewalls 22
+/start
 /time set day
-/killandremovewalls 30
+/killandremovewalls 44
+/start
+/killandremovewalls 44
+/start
+/killandremovewalls 33
+/start
+/killandremovewalls 33
+/start
+/killandremovewalls 33
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 222
+/killandremovewalls 45
+/time set day
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 22
+/start
+/killandremovewalls 33
+/start
+/killandremovewalls 33
+/start
+/killandremovewalls 22
 /start

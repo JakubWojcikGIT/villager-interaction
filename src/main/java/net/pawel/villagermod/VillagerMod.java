@@ -15,7 +15,7 @@ import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.DummyVillager;
 import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
-import net.pawel.villagermod.events.EnemySpawnScheduler;
+import net.pawel.villagermod.events.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +42,6 @@ public class VillagerMod implements ModInitializer {
             StopSpawningCommand.register(dispatcher);
             SummonIntrovertsCommand.register(dispatcher);
             SummonExtravertsCommand.register(dispatcher);
-            ListEntitiesCommand.register(dispatcher);
             StartExperimentCommand.register(dispatcher);
             KillAndRemoveWallsCommand.register(dispatcher);
         });
