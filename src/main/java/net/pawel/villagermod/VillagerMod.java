@@ -9,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.pawel.villagermod.commands.*;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.DummyVillager;
@@ -44,6 +43,7 @@ public class VillagerMod implements ModInitializer {
             SummonExtravertsCommand.register(dispatcher);
             StartExperimentCommand.register(dispatcher);
             KillAndRemoveWallsCommand.register(dispatcher);
+            ListEntitiesCommand.register(dispatcher);
         });
 
         ServerEntityEvents.ENTITY_LOAD.register(VillagerMod::preventSlimeSpawn);

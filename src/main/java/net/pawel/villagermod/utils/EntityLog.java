@@ -37,10 +37,8 @@ public class EntityLog {
                     csvContent.append(generation).append(",");
                     csvContent.append(villager.getHealth()).append(",");
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH)).append(",");
-                    csvContent.append(villager.getAggressionTrait()).append(",");
-                    csvContent.append(villager.getAgilityTrait()).append(",");
-                    csvContent.append(villager.getResilienceTrait()).append(",");
-                    csvContent.append(villager.getStrengthTrait()).append(",");
+                    csvContent.append(villager.villagerTraits.describeTrait(TraitType.AGGRESSION)).append(",");
+                    csvContent.append(villager.villagerTraits.describeTrait(TraitType.AGILITY)).append(",");
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)).append(",");
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)).append(",");
                     csvContent.append(villager.isPrimal()).append(",");
@@ -64,7 +62,7 @@ public class EntityLog {
 
     public static void initializeLogFile() {
         try (FileWriter writer = new FileWriter(LOG_FILE)) {
-            writer.write("generation,health,maxHealth,aggressionTrait,agilityTrait,resilienceTrait,strengthTrait,attackDamage,movementSpeed,isPrimal,type\n");
+            writer.write("generation,health,maxHealth,aggressionTrait,agilityTrait,attackDamage,movementSpeed,isPrimal,type\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
