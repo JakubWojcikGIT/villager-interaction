@@ -68,12 +68,50 @@ public class ListEntitiesCommand {
                     double maxHealth = villager.getHealth();
                     double movementSpeed = villager.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
                     String isPrimal = villager.isPrimal() ? "true" : "false";
+
                     String aggressionTrait = villager.villagerTraits.describeTrait(TraitType.AGGRESSION);
                     String aggressiveAlleles = villager.villagerTraits.getAllele(TraitType.AGGRESSION).toString();
+
                     String agilityTrait = villager.villagerTraits.describeTrait(TraitType.AGILITY);
                     String agilityAlleles = villager.villagerTraits.getAllele(TraitType.AGILITY).toString();
-                    String entityInfo = String.format(" - %s has attributes: {ACTUAL HEALTH: %.1f, GENERIC_MOVEMENT_SPEED: %.2f, IS_PRIMAL: %s, AGGRESSION_TRAIT: %s WITH %s, AGILITY TRAIT: %s WITH %s}",
-                            capitalize(entityName), maxHealth, movementSpeed, isPrimal, aggressionTrait, aggressiveAlleles, agilityTrait, agilityAlleles);
+
+                    String sociabilityTrait = villager.villagerTraits.describeTrait(TraitType.SOCIABILITY);
+                    String sociabilityAlleles = villager.villagerTraits.getAllele(TraitType.SOCIABILITY).toString();
+
+                    String courageTrait = villager.villagerTraits.describeTrait(TraitType.COURAGE);
+                    String courageAlleles = villager.villagerTraits.getAllele(TraitType.COURAGE).toString();
+
+                    String intelligenceTrait = villager.villagerTraits.describeTrait(TraitType.INTELLIGENCE);
+                    String intelligenceAlleles = villager.villagerTraits.getAllele(TraitType.INTELLIGENCE).toString();
+
+                    String curiosityTrait = villager.villagerTraits.describeTrait(TraitType.CURIOSITY);
+                    String curiosityAlleles = villager.villagerTraits.getAllele(TraitType.CURIOSITY).toString();
+
+                    String strengthTrait = villager.villagerTraits.describeTrait(TraitType.STRENGTH);
+                    String strengthAlleles = villager.villagerTraits.getAllele(TraitType.STRENGTH).toString();
+
+                    String leadershipTrait = villager.villagerTraits.describeTrait(TraitType.LEADERSHIP);
+                    String leadershipAlleles = villager.villagerTraits.getAllele(TraitType.LEADERSHIP).toString();
+
+                    String speedTrait = villager.villagerTraits.describeTrait(TraitType.SPEED);
+                    String speedAlleles = villager.villagerTraits.getAllele(TraitType.SPEED).toString();
+
+                    String nightVisionTrait = villager.villagerTraits.describeTrait(TraitType.NIGHT_VISION);
+                    String nightVisionAlleles = villager.villagerTraits.getAllele(TraitType.NIGHT_VISION).toString();
+
+                    String entityInfo = String.format(
+                            " - %s has attributes: {ACTUAL HEALTH: %.1f, GENERIC_MOVEMENT_SPEED: %.2f, IS_PRIMAL: %s, " +
+                                    "AGGRESSION_TRAIT: %s WITH %s, AGILITY_TRAIT: %s WITH %s, SOCIABILITY_TRAIT: %s WITH %s, " +
+                                    "COURAGE_TRAIT: %s WITH %s, INTELLIGENCE_TRAIT: %s WITH %s, CURIOSITY_TRAIT: %s WITH %s, " +
+                                    "STRENGTH_TRAIT: %s WITH %s, LEADERSHIP_TRAIT: %s WITH %s, SPEED_TRAIT: %s WITH %s, " +
+                                    "NIGHT_VISION_TRAIT: %s WITH %s}",
+                            capitalize(entityName), maxHealth, movementSpeed, isPrimal,
+                            aggressionTrait, aggressiveAlleles, agilityTrait, agilityAlleles,
+                            sociabilityTrait, sociabilityAlleles, courageTrait, courageAlleles,
+                            intelligenceTrait, intelligenceAlleles, curiosityTrait, curiosityAlleles,
+                            strengthTrait, strengthAlleles, leadershipTrait, leadershipAlleles,
+                            speedTrait, speedAlleles, nightVisionTrait, nightVisionAlleles
+                    );
                     player.sendMessage(Text.literal(entityInfo), false);
                     logContent.append(entityInfo).append("\n");
                 }
