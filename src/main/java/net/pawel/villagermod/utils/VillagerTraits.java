@@ -41,5 +41,9 @@ public class VillagerTraits {
         }
         return sb.toString();
     }
+
+    public boolean containsTrait(TraitType type) {
+        return traits.containsKey(type);
+    }
 }
 

@@ -41,16 +41,17 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
 
         this.targetSelector.add(1, (new RevengeGoal(this, VillagerAbstract.class)).setGroupRevenge());
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
-        this.goalSelector.add(7, new VillagerPairGoal(this, 1D));
+        this.goalSelector.add(1, new VillagerPairGoal(this, 1D));
         this.goalSelector.add(0, new VillagerBreedGoal(this, 1D));
     }
 
     public static DefaultAttributeContainer.Builder createIntrovertedVillagerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 40);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 30)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 4);
     }
 
     @Override

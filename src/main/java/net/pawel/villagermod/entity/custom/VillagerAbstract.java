@@ -5,6 +5,7 @@ import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -15,10 +16,16 @@ import net.minecraft.stat.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
+import net.pawel.villagermod.entity.ai.NightDamageBoostGoal;
+import net.pawel.villagermod.entity.ai.VillagerBreedGoal;
+import net.pawel.villagermod.utils.TraitType;
 import net.pawel.villagermod.utils.VillagerTraits;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 
 public abstract class VillagerAbstract extends AnimalEntity {
     private static final Random random = new Random();
@@ -30,7 +37,6 @@ public abstract class VillagerAbstract extends AnimalEntity {
     protected int socialBattery = 500;
     protected int previousCrowdSize = 0;
     public VillagerTraits villagerTraits;
-
 
 
     private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -46,6 +52,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
         super(entityType, world);
         this.dataTracker.set(PRIMAL, true);
         this.villagerTraits = new VillagerTraits();
+        applyTraits();
     }
 
     public boolean isPrimal() {
@@ -177,11 +184,83 @@ public abstract class VillagerAbstract extends AnimalEntity {
         other.setBreedingAge(100);
         this.breedCooldown = 0;
         ((VillagerAbstract) other).breedCooldown = 0;
-        world.sendEntityStatus(this, (byte)18);
+        world.sendEntityStatus(this, (byte) 18);
         if (world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
             world.spawnEntity(new ExperienceOrbEntity(world, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
         }
 
     }
 
+    private void applyTraits() {
+        for (TraitType traitType : TraitType.values()) {
+            String trait = villagerTraits.describeTrait(traitType);
+            switch (traitType) {
+                case AGGRESSION:
+                    String aggressionTrait = villagerTraits.describeTrait(TraitType.AGGRESSION);
+                    if (aggressionTrait.equals("Aggressive")) {
+                        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 1.2
+                        );
+                        this.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE) + 0.1
+                        );
+                        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH) * 0.9
+                        );
+                    } else if (aggressionTrait.equals("Peaceful")) {
+                        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH) * 1.2
+                        );
+                        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.8
+                        );
+                        this.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE) - 0.1
+                        );
+                    }
+                    break;
+                case AGILITY:
+                    if (trait.equals("Tanky")) {
+                        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH) * 2
+                        );
+                        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.9
+                        );
+                    } else if (trait.equals("Agile")) {
+                        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH) * 0.9
+                        );
+                        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.2
+                        );
+                    }
+                    break;
+                case COURAGE:
+                    if (trait.equals("Brave")) {
+                    } else if (trait.equals("Cowardly")) {
+                    }
+                    break;
+                case STRENGTH:
+                    if (trait.equals("Strong")) {
+                    }
+                    break;
+                case LEADERSHIP:
+                    if (trait.equals("Leader")) {
+                        // boost to nearby villagers
+                    }
+                    break;
+                case SPEED:
+                    if (trait.equals("Swift")) {
+                    } else if (trait.equals("Heavy")) {
+                    }
+                    break;
+                case NIGHT_VISION:
+                    if (trait.equals("Night Owl")) {
+                        this.goalSelector.add(4, new NightDamageBoostGoal(this));
+                    }
+                    break;
+            }
+        }
+    }
 }

@@ -39,9 +39,7 @@ public class EntityLog {
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.AGGRESSION)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.AGILITY)).append(",");
-                    csvContent.append(villager.villagerTraits.describeTrait(TraitType.SOCIABILITY)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.COURAGE)).append(",");
-                    csvContent.append(villager.villagerTraits.describeTrait(TraitType.INTELLIGENCE)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.CURIOSITY)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.STRENGTH)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.LEADERSHIP)).append(",");
@@ -70,7 +68,7 @@ public class EntityLog {
 
     public static void initializeLogFile() {
         try (FileWriter writer = new FileWriter(LOG_FILE)) {
-            writer.write("generation,health,maxHealth,aggressionTrait,agilityTrait, sociability, courage, intelligence, curiosity, strength, leadership, speed, night_vision,attackDamage,movementSpeed,isPrimal,type\n");
+            writer.write("generation,health,maxHealth,aggressionTrait,agilityTrait, courage, curiosity, strength, leadership, speed, night_vision,attackDamage,movementSpeed,isPrimal,type\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
