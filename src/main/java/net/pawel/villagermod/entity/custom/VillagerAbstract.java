@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -37,6 +38,8 @@ public abstract class VillagerAbstract extends AnimalEntity {
     protected int socialBattery = 500;
     protected int previousCrowdSize = 0;
     public VillagerTraits villagerTraits;
+    public static int currentGeneration = 0;
+    protected int generation;
 
 
     private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(VillagerAbstract.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -52,6 +55,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
         super(entityType, world);
         this.dataTracker.set(PRIMAL, true);
         this.villagerTraits = new VillagerTraits();
+        this.generation = currentGeneration;
         applyTraits();
     }
 
@@ -72,8 +76,10 @@ public abstract class VillagerAbstract extends AnimalEntity {
             this.mate = null;
         }
 
-        // Sigmoid function to adjust breedCooldown based on socialBatter
-        double sigmoidFactor = 1 / (1 + Math.exp(-0.1 * (socialBattery - 500)));
+        // Sigmoid function to adjust breedCooldown based on socialBattery and generationDifference
+        int generationDifference = currentGeneration - this.generation;
+        double generationFactor = 1.0 / (1 + generationDifference); // Decrease factor with larger generation difference
+        double sigmoidFactor = generationFactor * (1 / (1 + Math.exp(-0.1 * (socialBattery - 500))));
         breedCooldown += (int) (sigmoidFactor * 10);
     }
 
@@ -145,7 +151,8 @@ public abstract class VillagerAbstract extends AnimalEntity {
         VillagerAbstract child = ModEntities.DUMMY_VILLAGER.create(world);
         if (child != null && mateEntity instanceof VillagerAbstract mate) {
             child.setPrimal(false);
-
+            child.generation = Math.max(this.generation, mate.generation) + 1;
+            currentGeneration = Math.max(currentGeneration, child.generation);
             child.villagerTraits = new VillagerTraits(this.villagerTraits, mate.villagerTraits);
         }
         return child;
@@ -188,7 +195,21 @@ public abstract class VillagerAbstract extends AnimalEntity {
         if (world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
             world.spawnEntity(new ExperienceOrbEntity(world, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
         }
+    }
 
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        int generationDifference = currentGeneration - this.generation;
+        float ageMultiplier = 1.0f + (generationDifference * 0.1f); // Increase damage by 10% per generation difference
+        return super.damage(source, amount * ageMultiplier);
+    }
+
+    public int getGeneration() {
+        return generation;
+    }
+
+    public int getSocialBattery() {
+        return socialBattery;
     }
 
     private void applyTraits() {

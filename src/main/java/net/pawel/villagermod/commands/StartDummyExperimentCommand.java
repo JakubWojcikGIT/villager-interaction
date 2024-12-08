@@ -9,6 +9,10 @@ import net.minecraft.util.math.BlockPos;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.DummyVillager;
 import net.pawel.villagermod.events.*;
+import net.pawel.villagermod.utils.Allele;
+import net.pawel.villagermod.utils.TraitType;
+
+import java.util.Map;
 
 public class StartDummyExperimentCommand {
     private static final EnemySpawnScheduler enemySpawnScheduler = new EnemySpawnScheduler();
@@ -64,12 +68,41 @@ public class StartDummyExperimentCommand {
         }
     }
 
+    // manualy assigned traits
     private static void summonDummyVillagers(ServerWorld world, BlockPos pos) {
+        DummyVillager[] villagers = new DummyVillager[6];
+        for (int i = 0; i < villagers.length; i++) {
+            villagers[i] = new DummyVillager(ModEntities.DUMMY_VILLAGER, world);
+            Map<TraitType, Allele> traits = villagers[i].villagerTraits.getTraits();
+            traits.clear();
+            if (i < villagers.length / 2) {
+                traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
+                traits.put(TraitType.AGILITY, new Allele('a', 'a'));
+                traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
+                traits.put(TraitType.COURAGE, new Allele('a', 'a'));
+                traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
+                traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
+                traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
+                traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
+                traits.put(TraitType.SPEED, new Allele('a', 'a'));
+                traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
+            } else {
+                traits.put(TraitType.AGGRESSION, new Allele('A', 'A'));
+                traits.put(TraitType.AGILITY, new Allele('A', 'A'));
+                traits.put(TraitType.SOCIABILITY, new Allele('A', 'A'));
+                traits.put(TraitType.COURAGE, new Allele('A', 'A'));
+                traits.put(TraitType.INTELLIGENCE, new Allele('A', 'A'));
+                traits.put(TraitType.CURIOSITY, new Allele('A', 'A'));
+                traits.put(TraitType.STRENGTH, new Allele('A', 'A'));
+                traits.put(TraitType.LEADERSHIP, new Allele('A', 'A'));
+                traits.put(TraitType.SPEED, new Allele('A', 'A'));
+                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'A'));            }
+        }
+
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
-            DummyVillager dummyVillager = new DummyVillager(ModEntities.DUMMY_VILLAGER, world);
             BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
-            dummyVillager.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
-            world.spawnEntity(dummyVillager);
+            villagers[i % villagers.length].refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
+            world.spawnEntity(villagers[i % villagers.length]);
         }
     }
 

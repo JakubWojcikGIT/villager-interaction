@@ -15,6 +15,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.ai.*;
+import net.pawel.villagermod.utils.VillagerTraits;
 import net.pawel.villagermod.utils.VillagerUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,8 +35,8 @@ public class ExtravertedVillagerEntity extends VillagerAbstract {
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        this.goalSelector.add(0, new VillagerPairGoal(this, 1D)); // Ensure unique priority
-        this.goalSelector.add(0, new VillagerBreedGoal(this, 1D)); // Ensure unique priority
+        this.goalSelector.add(0, new VillagerPairGoal(this, 1D));
+        this.goalSelector.add(0, new VillagerBreedGoal(this, 1D));
 
         this.targetSelector.add(1, (new RevengeGoal(this, VillagerAbstract.class)).setGroupRevenge());
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, VindicatorEntity.class, true));
@@ -50,9 +51,9 @@ public class ExtravertedVillagerEntity extends VillagerAbstract {
 
     private void updateSocialBattery() {
         int currentCrowdSize = VillagerUtils.countNearbyVillagers(this, PERSONAL_SPACE_RADIUS * 1.5);
-        double logisticFactor = 1 / (1 + Math.exp(-0.1 * (socialBattery - 500))); // Logistic function centered at 50
+        double logisticFactor = 1 / (1 + Math.exp(-0.1 * (socialBattery - 500)));
 
-        int change = (int) (logisticFactor * 3); // Scale the change by the logistic factor
+        int change = (int) (logisticFactor * 3);
 
         if (currentCrowdSize >= CROWD_THRESHOLD) {
             socialBattery = Math.min(1000, socialBattery + change);
@@ -65,17 +66,23 @@ public class ExtravertedVillagerEntity extends VillagerAbstract {
 
     public static DefaultAttributeContainer.Builder createExtravertVillagerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 30)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 60)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 4);
     }
 
     @Nullable
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        ExtravertedVillagerEntity customChild = ModEntities.EXTRAVERTED_VILLAGER.create(world);
-        return customChild;
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity mateEntity) {
+        VillagerAbstract child = ModEntities.EXTRAVERTED_VILLAGER.create(world);
+        if (child != null && mateEntity instanceof VillagerAbstract mate) {
+            child.setPrimal(false);
+            child.generation = Math.max(this.generation, mate.generation) + 1;
+            currentGeneration = Math.max(currentGeneration, child.generation);
+            child.villagerTraits = new VillagerTraits(this.villagerTraits, mate.villagerTraits);
+        }
+        return child;
     }
 }

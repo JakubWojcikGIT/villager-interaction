@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.VindicatorEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.pawel.villagermod.entity.custom.VillagerAbstract;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class EnemySpawnScheduler {
             int chunkX = pos.getX() >> 4;
             int chunkZ = pos.getZ() >> 4;
             if (world.isChunkLoaded(chunkX, chunkZ)) {
-                for (int i = 0; i < NUMBER_OF_ENEMIES; i++) {
+                for (int i = 0; i < NUMBER_OF_ENEMIES + VillagerAbstract.currentGeneration; i++) {
                     VindicatorEntity vindicator = new VindicatorEntity(EntityType.VINDICATOR, world);
                     vindicator.refreshPositionAndAngles(pos, 0.0F, 0.0F);
                     world.spawnEntity(vindicator);

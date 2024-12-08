@@ -11,7 +11,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.world.World;
-import net.pawel.villagermod.entity.ai.ExtrovertGroupSeekingGoal;
 import net.pawel.villagermod.entity.ai.VillagerAttackGoal;
 import net.pawel.villagermod.entity.ai.VillagerBreedGoal;
 import net.pawel.villagermod.entity.ai.VillagerPairGoal;
@@ -45,10 +44,10 @@ public class DummyVillager extends VillagerAbstract {
 
     public static DefaultAttributeContainer.Builder createDummyVillagerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 60)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 120)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 35)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 100)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 4);
     }
 

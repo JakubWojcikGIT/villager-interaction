@@ -15,6 +15,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ai.*;
 import net.pawel.villagermod.entity.ModEntities;
+import net.pawel.villagermod.utils.VillagerTraits;
 import net.pawel.villagermod.utils.VillagerUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,10 +48,10 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
 
     public static DefaultAttributeContainer.Builder createIntrovertedVillagerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 30)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 60)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 4);
     }
 
@@ -61,6 +62,19 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
             super.setupAnimationStates();
         }
         updateSocialBattery();
+    }
+
+    @Nullable
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity mateEntity) {
+        VillagerAbstract child = ModEntities.INTROVERTED_VILLAGER.create(world);
+        if (child != null && mateEntity instanceof VillagerAbstract mate) {
+            child.setPrimal(false);
+            child.generation = Math.max(this.generation, mate.generation) + 1;
+            currentGeneration = Math.max(currentGeneration, child.generation);
+            child.villagerTraits = new VillagerTraits(this.villagerTraits, mate.villagerTraits);
+        }
+        return child;
     }
 
     private void updateSocialBattery() {
@@ -76,11 +90,5 @@ public class IntrovertedVillagerEntity extends VillagerAbstract {
         }
 
         previousCrowdSize = currentCrowdSize;
-    }
-
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.INTROVERTED_VILLAGER.create(world);
     }
 }

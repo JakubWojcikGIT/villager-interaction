@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EntityLog {
 
-    private static int generation = 1;
+    private static int wave = 1;
     private static final String LOG_DIRECTORY = System.getProperty("user.home") + "/Desktop";
     private static final String LOG_FILE = LOG_DIRECTORY + "/villagers_log.csv";
 
@@ -34,7 +34,7 @@ public class EntityLog {
             if (logToFile) {
                 StringBuilder csvContent = new StringBuilder();
                 for (VillagerAbstract villager : villagers) {
-                    csvContent.append(generation).append(",");
+                    csvContent.append(wave).append(",");
                     csvContent.append(villager.getHealth()).append(",");
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.AGGRESSION)).append(",");
@@ -48,10 +48,12 @@ public class EntityLog {
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)).append(",");
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)).append(",");
                     csvContent.append(villager.isPrimal()).append(",");
-                    csvContent.append(villager.getType()).append("\n");
+                    csvContent.append(villager.getType()).append(",");
+                    csvContent.append(villager.getSocialBattery()).append(","); // Add socialBattery
+                    csvContent.append(villager.getGeneration()).append("\n"); // Add generation
                 }
                 saveLogToFile(csvContent.toString());
-                generation++;
+                wave++;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +70,7 @@ public class EntityLog {
 
     public static void initializeLogFile() {
         try (FileWriter writer = new FileWriter(LOG_FILE)) {
-            writer.write("generation,health,maxHealth,aggressionTrait,agilityTrait, courage, curiosity, strength, leadership, speed, night_vision,attackDamage,movementSpeed,isPrimal,type\n");
+            writer.write("wave,health,maxHealth,aggressionTrait,agilityTrait,courage,curiosity,strength,leadership,speed,night_vision,attackDamage,movementSpeed,isPrimal,type,socialBattery,generation\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
