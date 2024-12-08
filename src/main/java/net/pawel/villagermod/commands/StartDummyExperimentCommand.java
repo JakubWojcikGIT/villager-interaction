@@ -21,7 +21,7 @@ public class StartDummyExperimentCommand {
     private static final int RECTANGLE_HEIGHT = 2;
     private static final int RECTANGLE_WIDTH = 20;
     private static final int NUMBER_OF_VILLAGERS = 5;
-    private static final int PERIOD = 40;
+    private static final int PERIOD = 120;
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("start_dummy_experiment")
@@ -96,7 +96,8 @@ public class StartDummyExperimentCommand {
                 traits.put(TraitType.STRENGTH, new Allele('A', 'A'));
                 traits.put(TraitType.LEADERSHIP, new Allele('A', 'A'));
                 traits.put(TraitType.SPEED, new Allele('A', 'A'));
-                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'A'));            }
+                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'A'));
+            }
         }
 
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {

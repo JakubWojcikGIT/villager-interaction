@@ -44,10 +44,10 @@ public class DummyVillager extends VillagerAbstract {
 
     public static DefaultAttributeContainer.Builder createDummyVillagerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 120)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 200)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 100)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 50)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 4);
     }
 
