@@ -200,7 +200,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
     @Override
     public boolean damage(DamageSource source, float amount) {
         int generationDifference = currentGeneration - this.generation;
-        float ageMultiplier = 1.0f + (generationDifference * 0.1f); // Increase damage by 10% per generation difference
+        float ageMultiplier = 1.0f + (generationDifference * 0.1f);
         return super.damage(source, amount * ageMultiplier);
     }
 
