@@ -18,7 +18,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.ai.*;
-import net.pawel.villagermod.utils.TraitType;
+import net.pawel.villagermod.enums.TraitType;
 import net.pawel.villagermod.utils.VillagerTraits;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,6 +69,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
     @Override
     public void tick() {
         super.tick();
+        this.setupAnimationStates();
         if (this.mate != null && !this.mate.isAlive()) {
             pairs.remove(this);
             pairs.remove(this.mate);

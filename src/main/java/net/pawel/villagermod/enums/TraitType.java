@@ -1,4 +1,4 @@
-package net.pawel.villagermod.utils;
+package net.pawel.villagermod.enums;
 
 public enum TraitType {
     AGGRESSION("Aggressive", "Peaceful"),

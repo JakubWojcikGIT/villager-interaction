@@ -10,7 +10,7 @@ import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.DummyVillager;
 import net.pawel.villagermod.events.*;
 import net.pawel.villagermod.utils.Allele;
-import net.pawel.villagermod.utils.TraitType;
+import net.pawel.villagermod.enums.TraitType;
 
 import java.util.Map;
 

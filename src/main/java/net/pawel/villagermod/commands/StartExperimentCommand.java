@@ -12,7 +12,7 @@ import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
 import net.pawel.villagermod.events.*;
 import net.pawel.villagermod.utils.Allele;
-import net.pawel.villagermod.utils.TraitType;
+import net.pawel.villagermod.enums.TraitType;
 
 import java.util.Map;
 

@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.custom.VillagerAbstract;
+import net.pawel.villagermod.enums.TraitType;
 
 import java.io.FileWriter;
 import java.io.IOException;

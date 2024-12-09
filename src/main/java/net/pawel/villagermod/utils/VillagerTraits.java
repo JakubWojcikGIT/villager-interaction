@@ -1,5 +1,7 @@
 package net.pawel.villagermod.utils;
 
+import net.pawel.villagermod.enums.TraitType;
+
 import java.util.EnumMap;
 import java.util.Map;
 

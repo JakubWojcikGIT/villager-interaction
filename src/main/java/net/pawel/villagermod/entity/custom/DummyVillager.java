@@ -36,12 +36,6 @@ public class DummyVillager extends VillagerAbstract {
         this.goalSelector.add(0, new VillagerBreedGoal(this, 1D));
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        this.setupAnimationStates();
-    }
-
     public static DefaultAttributeContainer.Builder createDummyVillagerAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 200)
@@ -50,5 +44,4 @@ public class DummyVillager extends VillagerAbstract {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 50)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 4);
     }
-
 }

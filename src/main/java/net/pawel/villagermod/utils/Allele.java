@@ -1,5 +1,7 @@
 package net.pawel.villagermod.utils;
 
+import net.pawel.villagermod.enums.TraitType;
+
 public class Allele {
     private final char first;
     private final char second;
