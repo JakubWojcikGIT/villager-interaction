@@ -17,8 +17,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
-import net.pawel.villagermod.entity.ai.NightDamageBoostGoal;
-import net.pawel.villagermod.entity.ai.VillagerBreedGoal;
+import net.pawel.villagermod.entity.ai.*;
 import net.pawel.villagermod.utils.TraitType;
 import net.pawel.villagermod.utils.VillagerTraits;
 import org.jetbrains.annotations.Nullable;
@@ -78,7 +77,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
         // Sigmoid function to adjust breedCooldown based on socialBattery and generationDifference
         int generationDifference = currentGeneration - this.generation;
-        double generationFactor = 1.0 / (1 + generationDifference); // Decrease factor with larger generation difference
+        double generationFactor = 1.0 / (1 + generationDifference);
         double sigmoidFactor = generationFactor * (1 / (1 + Math.exp(-0.1 * (socialBattery - 500))));
         breedCooldown += (int) (sigmoidFactor * 10);
     }
@@ -219,6 +218,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
                 case AGGRESSION:
                     String aggressionTrait = villagerTraits.describeTrait(TraitType.AGGRESSION);
                     if (aggressionTrait.equals("Aggressive")) {
+                        this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
                         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(
                                 this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 1.2
                         );
@@ -257,23 +257,30 @@ public abstract class VillagerAbstract extends AnimalEntity {
                         );
                     }
                     break;
-                case COURAGE:
-                    if (trait.equals("Brave")) {
-                    } else if (trait.equals("Cowardly")) {
+                case SPEED:
+                    if (trait.equals("Swift")) {
+                        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 1.2
+                        );
+                    } else if (trait.equals("Heavy")) {
+                        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 0.8
+                        );
+                        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(
+                                this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 1.2
+                        );
                     }
                     break;
-                case STRENGTH:
-                    if (trait.equals("Strong")) {
+                case COURAGE:
+                    if (trait.equals("Brave")) {
+                        this.goalSelector.add(3, new BraveAttackGoal(this));
+                    } else if (trait.equals("Cowardly")) {
+                        this.goalSelector.add(3, new CowardGoal(this));
                     }
                     break;
                 case LEADERSHIP:
                     if (trait.equals("Leader")) {
-                        // boost to nearby villagers
-                    }
-                    break;
-                case SPEED:
-                    if (trait.equals("Swift")) {
-                    } else if (trait.equals("Heavy")) {
+                        this.goalSelector.add(3, new LeaderBoostGoal(this));
                     }
                     break;
                 case NIGHT_VISION:

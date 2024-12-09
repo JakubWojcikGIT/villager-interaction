@@ -80,23 +80,23 @@ public class StartDummyExperimentCommand {
                 traits.put(TraitType.AGILITY, new Allele('a', 'a'));
                 traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
                 traits.put(TraitType.COURAGE, new Allele('a', 'a'));
+                traits.put(TraitType.INTELLIGENCE, new Allele('A', 'a'));
+                traits.put(TraitType.CURIOSITY, new Allele('A', 'a'));
+                traits.put(TraitType.STRENGTH, new Allele('A', 'a'));
+                traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
+                traits.put(TraitType.SPEED, new Allele('A', 'a'));
+                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
+            } else {
+                traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
+                traits.put(TraitType.AGILITY, new Allele('A', 'a'));
+                traits.put(TraitType.SOCIABILITY, new Allele('A', 'a'));
+                traits.put(TraitType.COURAGE, new Allele('A', 'a'));
                 traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
                 traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
                 traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
                 traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
                 traits.put(TraitType.SPEED, new Allele('a', 'a'));
                 traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
-            } else {
-                traits.put(TraitType.AGGRESSION, new Allele('A', 'A'));
-                traits.put(TraitType.AGILITY, new Allele('A', 'A'));
-                traits.put(TraitType.SOCIABILITY, new Allele('A', 'A'));
-                traits.put(TraitType.COURAGE, new Allele('A', 'A'));
-                traits.put(TraitType.INTELLIGENCE, new Allele('A', 'A'));
-                traits.put(TraitType.CURIOSITY, new Allele('A', 'A'));
-                traits.put(TraitType.STRENGTH, new Allele('A', 'A'));
-                traits.put(TraitType.LEADERSHIP, new Allele('A', 'A'));
-                traits.put(TraitType.SPEED, new Allele('A', 'A'));
-                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'A'));
             }
         }
 

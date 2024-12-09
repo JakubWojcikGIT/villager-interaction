@@ -11,6 +11,10 @@ import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
 import net.pawel.villagermod.events.*;
+import net.pawel.villagermod.utils.Allele;
+import net.pawel.villagermod.utils.TraitType;
+
+import java.util.Map;
 
 public class StartExperimentCommand {
     private static final EnemySpawnScheduler enemySpawnScheduler = new EnemySpawnScheduler();
@@ -20,7 +24,7 @@ public class StartExperimentCommand {
     private static final int RECTANGLE_WIDTH = 20;
     private static final int SEPARATION = 10;
     private static final int NUMBER_OF_VILLAGERS = 5;
-    private static final int PERIOD = 40;
+    private static final int PERIOD = 120;
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("start_experiment")
@@ -79,6 +83,19 @@ public class StartExperimentCommand {
     private static void summonExtroverts(ServerWorld world, BlockPos pos) {
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             ExtravertedVillagerEntity extrovert = new ExtravertedVillagerEntity(ModEntities.EXTRAVERTED_VILLAGER, world);
+            Map<TraitType, Allele> traits = extrovert.villagerTraits.getTraits();
+            traits.clear();
+            traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
+            traits.put(TraitType.AGILITY, new Allele('a', 'a'));
+            traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
+            traits.put(TraitType.COURAGE, new Allele('a', 'a'));
+            traits.put(TraitType.INTELLIGENCE, new Allele('A', 'a'));
+            traits.put(TraitType.CURIOSITY, new Allele('A', 'a'));
+            traits.put(TraitType.STRENGTH, new Allele('A', 'a'));
+            traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
+            traits.put(TraitType.SPEED, new Allele('A', 'a'));
+            traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
+
             BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
             extrovert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
             world.spawnEntity(extrovert);
@@ -88,13 +105,24 @@ public class StartExperimentCommand {
     private static void summonIntroverts(ServerWorld world, BlockPos pos) {
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             IntrovertedVillagerEntity introvert = new IntrovertedVillagerEntity(ModEntities.INTROVERTED_VILLAGER, world);
+            Map<TraitType, Allele> traits = introvert.villagerTraits.getTraits();
+            traits.clear();
+            traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
+            traits.put(TraitType.AGILITY, new Allele('A', 'a'));
+            traits.put(TraitType.SOCIABILITY, new Allele('A', 'a'));
+            traits.put(TraitType.COURAGE, new Allele('A', 'a'));
+            traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
+            traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
+            traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
+            traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
+            traits.put(TraitType.SPEED, new Allele('a', 'a'));
+            traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
+
             BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
             introvert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
             world.spawnEntity(introvert);
         }
-    }
-
-    private static void startSpawningVindicators(ServerWorld world, BlockPos pos) {
+    }    private static void startSpawningVindicators(ServerWorld world, BlockPos pos) {
         BlockPos firstRectanglePos = pos.add(RECTANGLE_LENGTH / 2, 1, RECTANGLE_WIDTH / 2);
         BlockPos secondRectanglePos = pos.add(RECTANGLE_LENGTH + SEPARATION + RECTANGLE_LENGTH / 2, 1, RECTANGLE_WIDTH / 2);
 

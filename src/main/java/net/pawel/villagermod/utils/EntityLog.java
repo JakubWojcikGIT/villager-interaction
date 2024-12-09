@@ -49,8 +49,7 @@ public class EntityLog {
                     csvContent.append(villager.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)).append(",");
                     csvContent.append(villager.isPrimal()).append(",");
                     csvContent.append(villager.getType()).append(",");
-                    csvContent.append(villager.getSocialBattery()).append(","); // Add socialBattery
-                    csvContent.append(villager.getGeneration()).append("\n"); // Add generation
+                    csvContent.append(villager.getGeneration()).append("\n");
                 }
                 saveLogToFile(csvContent.toString());
                 wave++;
@@ -70,7 +69,7 @@ public class EntityLog {
 
     public static void initializeLogFile() {
         try (FileWriter writer = new FileWriter(LOG_FILE)) {
-            writer.write("wave,health,maxHealth,aggressionTrait,agilityTrait,courage,curiosity,strength,leadership,speed,night_vision,attackDamage,movementSpeed,isPrimal,type,socialBattery,generation\n");
+            writer.write("wave,health,maxHealth,aggressionTrait,agilityTrait,courage,curiosity,strength,leadership,speed,night_vision,attackDamage,movementSpeed,isPrimal,type,generation\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

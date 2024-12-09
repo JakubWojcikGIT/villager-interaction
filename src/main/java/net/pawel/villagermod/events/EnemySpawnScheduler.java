@@ -27,11 +27,11 @@ public class EnemySpawnScheduler {
             int chunkX = pos.getX() >> 4;
             int chunkZ = pos.getZ() >> 4;
             if (world.isChunkLoaded(chunkX, chunkZ)) {
-                int additionalEnemies = 0;
+                int enemies = NUMBER_OF_ENEMIES;
                 if (VillagerAbstract.currentGeneration < 10) {
-                   additionalEnemies = VillagerAbstract.currentGeneration;
+                   enemies += VillagerAbstract.currentGeneration;
                 }
-                for (int i = 0; i < NUMBER_OF_ENEMIES + additionalEnemies; i++) {
+                for (int i = 0; i < enemies; i++) {
                     VindicatorEntity vindicator = new VindicatorEntity(EntityType.VINDICATOR, world);
                     vindicator.refreshPositionAndAngles(pos, 0.0F, 0.0F);
                     world.spawnEntity(vindicator);
