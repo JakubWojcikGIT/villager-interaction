@@ -290,5 +290,6 @@ public abstract class VillagerAbstract extends AnimalEntity {
                     break;
             }
         }
+        this.setHealth((float) this.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH));
     }
 }
