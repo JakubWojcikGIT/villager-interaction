@@ -1,6 +1,7 @@
 package net.pawel.villagermod.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -28,14 +29,16 @@ public class StartExperimentCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("start_experiment")
+                .then(CommandManager.argument("waves", IntegerArgumentType.integer(1))
                 .executes(context -> {
-                    System.out.println("Executing start command");
-                    execute(context.getSource());
+                    int waves = IntegerArgumentType.getInteger(context, "waves");
+                    System.out.println("Executing start command with " + waves + " waves");
+                    execute(context.getSource(), waves);
                     return 1;
-                }));
+                })));
     }
 
-    public static void execute(ServerCommandSource source) {
+    public static void execute(ServerCommandSource source, int waves) {
         ServerWorld world = source.getWorld();
         BlockPos pos = BlockPos.ofFloored(source.getPosition());
 
@@ -45,9 +48,9 @@ public class StartExperimentCommand {
 
         summonIntroverts(world, pos.add(RECTANGLE_LENGTH + SEPARATION, 0, 0));
 
-        startSpawningVindicators(world, pos);
+        startSpawningVindicators(world, pos, waves);
 
-        startLogging(world, pos);
+        startLogging(world, pos, waves);
     }
 
     private static void createWalls(ServerWorld world, BlockPos startPos) {
@@ -122,15 +125,17 @@ public class StartExperimentCommand {
             introvert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
             world.spawnEntity(introvert);
         }
-    }    private static void startSpawningVindicators(ServerWorld world, BlockPos pos) {
+    }
+
+    private static void startSpawningVindicators(ServerWorld world, BlockPos pos, int waves) {
         BlockPos firstRectanglePos = pos.add(RECTANGLE_LENGTH / 2, 1, RECTANGLE_WIDTH / 2);
         BlockPos secondRectanglePos = pos.add(RECTANGLE_LENGTH + SEPARATION + RECTANGLE_LENGTH / 2, 1, RECTANGLE_WIDTH / 2);
 
-        enemySpawnScheduler.start(world, firstRectanglePos, PERIOD);
-        enemySpawnScheduler.start(world, secondRectanglePos, PERIOD);
+        enemySpawnScheduler.start(world, firstRectanglePos, PERIOD, waves);
+        enemySpawnScheduler.start(world, secondRectanglePos, PERIOD, waves);
     }
 
-    private static void startLogging(ServerWorld world, BlockPos pos) {
-        entityLogScheduler.start(world, pos, PERIOD);
+    private static void startLogging(ServerWorld world, BlockPos pos, int waves) {
+        entityLogScheduler.start(world, pos, PERIOD, waves);
     }
 }

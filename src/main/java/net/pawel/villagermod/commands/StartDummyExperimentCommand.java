@@ -1,6 +1,7 @@
 package net.pawel.villagermod.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -25,14 +26,16 @@ public class StartDummyExperimentCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("start_dummy_experiment")
+                .then(CommandManager.argument("waves", IntegerArgumentType.integer(1))
                 .executes(context -> {
-                    System.out.println("Executing startdummyexperiment command");
-                    execute(context.getSource());
+                    int waves = IntegerArgumentType.getInteger(context, "waves");
+                    System.out.println("Executing startdummyexperiment command with " + waves + " waves");
+                    execute(context.getSource(), waves);
                     return 1;
-                }));
+                })));
     }
 
-    public static void execute(ServerCommandSource source) {
+    public static void execute(ServerCommandSource source, int waves) {
         ServerWorld world = source.getWorld();
         BlockPos pos = BlockPos.ofFloored(source.getPosition());
 
@@ -40,9 +43,9 @@ public class StartDummyExperimentCommand {
 
         summonDummyVillagers(world, pos);
 
-        startSpawningVindicators(world, pos);
+        startSpawningVindicators(world, pos, waves);
 
-        startLogging(world, pos);
+        startLogging(world, pos, waves);
     }
 
     private static void createWall(ServerWorld world, BlockPos startPos) {
@@ -68,7 +71,6 @@ public class StartDummyExperimentCommand {
         }
     }
 
-    // manualy assigned traits
     private static void summonDummyVillagers(ServerWorld world, BlockPos pos) {
         DummyVillager[] villagers = new DummyVillager[6];
         for (int i = 0; i < villagers.length; i++) {
@@ -107,12 +109,12 @@ public class StartDummyExperimentCommand {
         }
     }
 
-    private static void startSpawningVindicators(ServerWorld world, BlockPos pos) {
+    private static void startSpawningVindicators(ServerWorld world, BlockPos pos, int waves) {
         BlockPos spawnPos = pos.add(RECTANGLE_LENGTH / 2, 1, RECTANGLE_WIDTH / 2);
-        enemySpawnScheduler.start(world, spawnPos, PERIOD);
+        enemySpawnScheduler.start(world, spawnPos, PERIOD, waves);
     }
 
-    private static void startLogging(ServerWorld world, BlockPos pos) {
-        entityLogScheduler.start(world, pos, PERIOD);
+    private static void startLogging(ServerWorld world, BlockPos pos, int waves) {
+        entityLogScheduler.start(world, pos, PERIOD, waves);
     }
 }

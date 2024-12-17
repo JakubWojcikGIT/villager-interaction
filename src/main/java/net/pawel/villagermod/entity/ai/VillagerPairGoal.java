@@ -8,7 +8,6 @@ import net.pawel.villagermod.entity.custom.VillagerAbstract;
 import java.util.EnumSet;
 
 public class VillagerPairGoal extends Goal {
-    private static int count = 0;
     private final VillagerAbstract villager;
     private final double speed;
     private VillagerAbstract mate;
@@ -27,13 +26,10 @@ public class VillagerPairGoal extends Goal {
         if (this.villager.getMate() == null || !this.villager.getMate().isAlive()) {
             this.mate = this.findMate();
             if (this.mate != null) {
-                this.villager.setCustomName(Text.of("Has mate " + count));
-                this.mate.setCustomName(Text.of("Has mate " + count));
                 this.villager.setMate(this.mate);
                 this.mate.setMate(this.villager);
                 VillagerAbstract.pairs.put(this.villager, this.mate);
                 VillagerAbstract.pairs.put(this.mate, this.villager);
-                count++;
                 return true;
             }
         }

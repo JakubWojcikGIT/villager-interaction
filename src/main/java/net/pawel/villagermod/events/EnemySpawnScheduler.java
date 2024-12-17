@@ -17,22 +17,29 @@ public class EnemySpawnScheduler {
     private final int NUMBER_OF_ENEMIES = 3;
     private final Map<BlockPos, ScheduledFuture<?>> spawnPoints = new HashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private int waveCount = 0;
 
-    public void start(ServerWorld world, BlockPos pos, int period) {
+    public void start(ServerWorld world, BlockPos pos, int period, int maxWaves) {
         if (isSpawning(pos)) {
             return;
         }
 
         Runnable spawnTask = () -> {
-            int chunkX = pos.getX() >> 4;
-            int chunkZ = pos.getZ() >> 4;
-            if (world.isChunkLoaded(chunkX, chunkZ)) {
-                int enemies = Math.min(NUMBER_OF_ENEMIES + VillagerAbstract.currentGeneration, 10);
-                for (int i = 0; i < enemies; i++) {
-                    VindicatorEntity vindicator = new VindicatorEntity(EntityType.VINDICATOR, world);
-                    vindicator.refreshPositionAndAngles(pos, 0.0F, 0.0F);
-                    world.spawnEntity(vindicator);
+            if (waveCount < maxWaves) {
+                int chunkX = pos.getX() >> 4;
+                int chunkZ = pos.getZ() >> 4;
+                if (world.isChunkLoaded(chunkX, chunkZ)) {
+                    int enemies = Math.min(NUMBER_OF_ENEMIES + VillagerAbstract.currentGeneration, 10);
+                    for (int i = 0; i < enemies; i++) {
+                        VindicatorEntity vindicator = new VindicatorEntity(EntityType.VINDICATOR, world);
+                        vindicator.refreshPositionAndAngles(pos, 0.0F, 0.0F);
+                        world.spawnEntity(vindicator);
+                    }
                 }
+                waveCount++;
+            } else {
+                stop(pos);
+                System.out.println("Reached maximum number of waves: " + maxWaves);
             }
         };
 

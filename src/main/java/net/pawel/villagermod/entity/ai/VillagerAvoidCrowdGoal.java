@@ -3,6 +3,7 @@ package net.pawel.villagermod.entity.ai;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.world.World;
 import net.pawel.villagermod.entity.custom.VillagerAbstract;
+import net.pawel.villagermod.utils.VillagerUtils;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -28,12 +29,12 @@ public class VillagerAvoidCrowdGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        return isCrowded();
+        return VillagerUtils.isCrowded(this.villager, this.personalSpaceRadius, this.crowdThreshold);
     }
 
     @Override
     public boolean shouldContinue() {
-        return avoidTime > 0 && isCrowded();
+        return avoidTime > 0 && VillagerUtils.isCrowded(this.villager, this.personalSpaceRadius, this.crowdThreshold);
     }
 
     @Override
@@ -52,11 +53,6 @@ public class VillagerAvoidCrowdGoal extends Goal {
             avoidTime--;
             moveAwayFromCrowd();
         }
-    }
-
-    private boolean isCrowded() {
-        List<? extends VillagerAbstract> list = this.world.getEntitiesByClass(VillagerAbstract.class, this.villager.getBoundingBox().expand(this.personalSpaceRadius), villager -> villager != this.villager);
-        return list.size() > this.crowdThreshold;
     }
 
     private void moveAwayFromCrowd() {
