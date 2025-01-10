@@ -11,9 +11,10 @@ import net.minecraft.world.World;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.ExtravertedVillagerEntity;
 import net.pawel.villagermod.entity.custom.IntrovertedVillagerEntity;
-import net.pawel.villagermod.events.*;
-import net.pawel.villagermod.utils.Allele;
 import net.pawel.villagermod.enums.TraitType;
+import net.pawel.villagermod.events.EnemySpawnScheduler;
+import net.pawel.villagermod.events.EntityLogScheduler;
+import net.pawel.villagermod.utils.Allele;
 
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class StartExperimentCommand {
     private static final int RECTANGLE_HEIGHT = 2;
     private static final int RECTANGLE_WIDTH = 20;
     private static final int SEPARATION = 10;
-    private static final int NUMBER_OF_VILLAGERS = 5;
+    private static final int NUMBER_OF_VILLAGERS = 6;
     private static final int PERIOD = 120;
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -84,46 +85,78 @@ public class StartExperimentCommand {
     }
 
     private static void summonExtroverts(ServerWorld world, BlockPos pos) {
-        for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
-            ExtravertedVillagerEntity extrovert = new ExtravertedVillagerEntity(ModEntities.EXTRAVERTED_VILLAGER, world);
-            Map<TraitType, Allele> traits = extrovert.villagerTraits.getTraits();
+        ExtravertedVillagerEntity[] villagers = new ExtravertedVillagerEntity[NUMBER_OF_VILLAGERS];
+        for (int i = 0; i < villagers.length; i++) {
+            villagers[i] = new ExtravertedVillagerEntity(ModEntities.EXTRAVERTED_VILLAGER, world);
+            Map<TraitType, Allele> traits = villagers[i].villagerTraits.getTraits();
             traits.clear();
-            traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
-            traits.put(TraitType.AGILITY, new Allele('a', 'a'));
-            traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
-            traits.put(TraitType.COURAGE, new Allele('a', 'a'));
-            traits.put(TraitType.INTELLIGENCE, new Allele('A', 'a'));
-            traits.put(TraitType.CURIOSITY, new Allele('A', 'a'));
-            traits.put(TraitType.STRENGTH, new Allele('A', 'a'));
-            traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
-            traits.put(TraitType.SPEED, new Allele('A', 'a'));
-            traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
+            if (i < villagers.length / 2) {
+                traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
+                traits.put(TraitType.AGILITY, new Allele('a', 'a'));
+                traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
+                traits.put(TraitType.COURAGE, new Allele('a', 'a'));
+                traits.put(TraitType.INTELLIGENCE, new Allele('A', 'a'));
+                traits.put(TraitType.CURIOSITY, new Allele('A', 'a'));
+                traits.put(TraitType.STRENGTH, new Allele('A', 'a'));
+                traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
+                traits.put(TraitType.SPEED, new Allele('A', 'a'));
+                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
+            } else {
+                traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
+                traits.put(TraitType.AGILITY, new Allele('A', 'a'));
+                traits.put(TraitType.SOCIABILITY, new Allele('A', 'a'));
+                traits.put(TraitType.COURAGE, new Allele('A', 'a'));
+                traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
+                traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
+                traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
+                traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
+                traits.put(TraitType.SPEED, new Allele('a', 'a'));
+                traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
+            }
+        }
 
+        for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
-            extrovert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
-            world.spawnEntity(extrovert);
+            villagers[i].refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
+            world.spawnEntity(villagers[i]);
         }
     }
 
     private static void summonIntroverts(ServerWorld world, BlockPos pos) {
-        for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
-            IntrovertedVillagerEntity introvert = new IntrovertedVillagerEntity(ModEntities.INTROVERTED_VILLAGER, world);
-            Map<TraitType, Allele> traits = introvert.villagerTraits.getTraits();
+        IntrovertedVillagerEntity[] villagers = new IntrovertedVillagerEntity[NUMBER_OF_VILLAGERS];
+        for (int i = 0; i < villagers.length; i++) {
+            villagers[i] = new IntrovertedVillagerEntity(ModEntities.INTROVERTED_VILLAGER, world);
+            Map<TraitType, Allele> traits = villagers[i].villagerTraits.getTraits();
             traits.clear();
-            traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
-            traits.put(TraitType.AGILITY, new Allele('A', 'a'));
-            traits.put(TraitType.SOCIABILITY, new Allele('A', 'a'));
-            traits.put(TraitType.COURAGE, new Allele('A', 'a'));
-            traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
-            traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
-            traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
-            traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
-            traits.put(TraitType.SPEED, new Allele('a', 'a'));
-            traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
+            if (i < villagers.length / 2) {
+                traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
+                traits.put(TraitType.AGILITY, new Allele('a', 'a'));
+                traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
+                traits.put(TraitType.COURAGE, new Allele('a', 'a'));
+                traits.put(TraitType.INTELLIGENCE, new Allele('A', 'a'));
+                traits.put(TraitType.CURIOSITY, new Allele('A', 'a'));
+                traits.put(TraitType.STRENGTH, new Allele('A', 'a'));
+                traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
+                traits.put(TraitType.SPEED, new Allele('A', 'a'));
+                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
+            } else {
+                traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
+                traits.put(TraitType.AGILITY, new Allele('A', 'a'));
+                traits.put(TraitType.SOCIABILITY, new Allele('A', 'a'));
+                traits.put(TraitType.COURAGE, new Allele('A', 'a'));
+                traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
+                traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
+                traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
+                traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
+                traits.put(TraitType.SPEED, new Allele('a', 'a'));
+                traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
+            }
+        }
 
+        for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
             BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
-            introvert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
-            world.spawnEntity(introvert);
+            villagers[i].refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
+            world.spawnEntity(villagers[i]);
         }
     }
 

@@ -9,9 +9,10 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.pawel.villagermod.entity.ModEntities;
 import net.pawel.villagermod.entity.custom.DummyVillager;
-import net.pawel.villagermod.events.*;
-import net.pawel.villagermod.utils.Allele;
 import net.pawel.villagermod.enums.TraitType;
+import net.pawel.villagermod.events.EnemySpawnScheduler;
+import net.pawel.villagermod.events.EntityLogScheduler;
+import net.pawel.villagermod.utils.Allele;
 
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class StartDummyExperimentCommand {
     private static final int RECTANGLE_LENGTH = 10;
     private static final int RECTANGLE_HEIGHT = 2;
     private static final int RECTANGLE_WIDTH = 20;
-    private static final int NUMBER_OF_VILLAGERS = 5;
+    private static final int NUMBER_OF_VILLAGERS = 6;
     private static final int PERIOD = 120;
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
