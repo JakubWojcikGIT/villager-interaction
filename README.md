@@ -2,8 +2,6 @@
 
 This Minecraft customizes villagers and add more advanced behaviors for them 
 
-## Progres
-For now we add focus on adding features, later we will combine them to create more complex dynamics
 ## Features
 
 - **Custom villagers**: Created custom villagers with their own animations, textures, attributes and behaviors
