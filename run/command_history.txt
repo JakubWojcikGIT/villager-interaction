@@ -1,50 +1,50 @@
+/killandremovewalls 33
+/time set day
+/killentities 333
+/start_dummy_experiment
+/killandremovewalls 33
+/time set day
+/start_dummy_experiment
+/killandremovewalls 33
+/start_dummy_experiment
+/killandremovewalls 33
+/start_experiment
+/killandremovewalls 33
+/start_dummy_experiment
+/killandremovewalls 44
+/start_dummy_experiment 2
+/killandremovewalls 33
+/start_dummy_experiment
+/start_dummy_experiment 2
+/start_experiment 2
 /killandremovewalls
-/killandremovewalls 23
-/start
-/killandremovewalls 34
-/start
-/killandremovewalls 23
-/start
-/killandremovewalls 23
-/start
 /killandremovewalls 22
-/start
+/start_dummy_experiment 2
+/weather clear
 /time set day
-/killandremovewalls 44
-/start
-/killandremovewalls 44
-/start
-/killandremovewalls 33
-/start
-/killandremovewalls 33
-/start
-/killandremovewalls 33
-/start
 /killandremovewalls 22
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 222
+/start_dummy_experiment 3
+/start_experiment 3
+/time set day
+/summon villagermod:extraverted_villager
+/su
+/summon
+/summon villagermod:introverted_villager
+/killandremovewalls 33
+/start_experiment 10
+/killandremovewalls 44
+/start_experiment 10
+/summonintroverts 6
+/killandremovewalls 44
+/start_dummy_experiment 10
+/killandremovewalls 20
+/summon villagermod:dummy_villager
+/killentities 3
+/time set day
+/killandremovewalls 20
+/summon villagermod:dummy_villager
+/killandremovewalls 33
+/start_experiment
+/start_experiment 2
+/start_dummy_experiment 1
 /killandremovewalls 45
-/time set day
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 22
-/start
-/killandremovewalls 33
-/start
-/killandremovewalls 33
-/start
-/killandremovewalls 22
-/start
