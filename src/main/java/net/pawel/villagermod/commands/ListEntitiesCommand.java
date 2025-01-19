@@ -75,20 +75,8 @@ public class ListEntitiesCommand {
                     String agilityTrait = villager.villagerTraits.describeTrait(TraitType.AGILITY);
                     String agilityAlleles = villager.villagerTraits.getAllele(TraitType.AGILITY).toString();
 
-                    String sociabilityTrait = villager.villagerTraits.describeTrait(TraitType.SOCIABILITY);
-                    String sociabilityAlleles = villager.villagerTraits.getAllele(TraitType.SOCIABILITY).toString();
-
                     String courageTrait = villager.villagerTraits.describeTrait(TraitType.COURAGE);
                     String courageAlleles = villager.villagerTraits.getAllele(TraitType.COURAGE).toString();
-
-                    String intelligenceTrait = villager.villagerTraits.describeTrait(TraitType.INTELLIGENCE);
-                    String intelligenceAlleles = villager.villagerTraits.getAllele(TraitType.INTELLIGENCE).toString();
-
-                    String curiosityTrait = villager.villagerTraits.describeTrait(TraitType.CURIOSITY);
-                    String curiosityAlleles = villager.villagerTraits.getAllele(TraitType.CURIOSITY).toString();
-
-                    String strengthTrait = villager.villagerTraits.describeTrait(TraitType.STRENGTH);
-                    String strengthAlleles = villager.villagerTraits.getAllele(TraitType.STRENGTH).toString();
 
                     String leadershipTrait = villager.villagerTraits.describeTrait(TraitType.LEADERSHIP);
                     String leadershipAlleles = villager.villagerTraits.getAllele(TraitType.LEADERSHIP).toString();
@@ -106,10 +94,8 @@ public class ListEntitiesCommand {
                                     "STRENGTH_TRAIT: %s WITH %s, LEADERSHIP_TRAIT: %s WITH %s, SPEED_TRAIT: %s WITH %s, " +
                                     "NIGHT_VISION_TRAIT: %s WITH %s}",
                             capitalize(entityName), maxHealth, movementSpeed, isPrimal,
-                            aggressionTrait, aggressiveAlleles, agilityTrait, agilityAlleles,
-                            sociabilityTrait, sociabilityAlleles, courageTrait, courageAlleles,
-                            intelligenceTrait, intelligenceAlleles, curiosityTrait, curiosityAlleles,
-                            strengthTrait, strengthAlleles, leadershipTrait, leadershipAlleles,
+                            aggressionTrait, aggressiveAlleles, agilityTrait, agilityAlleles, courageTrait, courageAlleles,
+                            leadershipTrait, leadershipAlleles,
                             speedTrait, speedAlleles, nightVisionTrait, nightVisionAlleles
                     );
                     player.sendMessage(Text.literal(entityInfo), false);

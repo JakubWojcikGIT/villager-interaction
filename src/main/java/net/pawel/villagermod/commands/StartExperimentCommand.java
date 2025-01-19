@@ -85,78 +85,38 @@ public class StartExperimentCommand {
     }
 
     private static void summonExtroverts(ServerWorld world, BlockPos pos) {
-        ExtravertedVillagerEntity[] villagers = new ExtravertedVillagerEntity[NUMBER_OF_VILLAGERS];
-        for (int i = 0; i < villagers.length; i++) {
-            villagers[i] = new ExtravertedVillagerEntity(ModEntities.EXTRAVERTED_VILLAGER, world);
-            Map<TraitType, Allele> traits = villagers[i].villagerTraits.getTraits();
-            traits.clear();
-            if (i < villagers.length / 2) {
-                traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
-                traits.put(TraitType.AGILITY, new Allele('a', 'a'));
-                traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
-                traits.put(TraitType.COURAGE, new Allele('a', 'a'));
-                traits.put(TraitType.INTELLIGENCE, new Allele('A', 'a'));
-                traits.put(TraitType.CURIOSITY, new Allele('A', 'a'));
-                traits.put(TraitType.STRENGTH, new Allele('A', 'a'));
-                traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
-                traits.put(TraitType.SPEED, new Allele('A', 'a'));
-                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
-            } else {
-                traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
-                traits.put(TraitType.AGILITY, new Allele('A', 'a'));
-                traits.put(TraitType.SOCIABILITY, new Allele('A', 'a'));
-                traits.put(TraitType.COURAGE, new Allele('A', 'a'));
-                traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
-                traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
-                traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
-                traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
-                traits.put(TraitType.SPEED, new Allele('a', 'a'));
-                traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
-            }
-        }
-
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
+            ExtravertedVillagerEntity extrovert = new ExtravertedVillagerEntity(ModEntities.EXTRAVERTED_VILLAGER, world);
+            Map<TraitType, Allele> traits = extrovert.villagerTraits.getTraits();
+            traits.clear();
+            traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
+            traits.put(TraitType.AGILITY, new Allele('a', 'a'));
+            traits.put(TraitType.COURAGE, new Allele('a', 'a'));
+            traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
+            traits.put(TraitType.SPEED, new Allele('A', 'a'));
+            traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
+
             BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
-            villagers[i].refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
-            world.spawnEntity(villagers[i]);
+            extrovert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
+            world.spawnEntity(extrovert);
         }
     }
 
     private static void summonIntroverts(ServerWorld world, BlockPos pos) {
-        IntrovertedVillagerEntity[] villagers = new IntrovertedVillagerEntity[NUMBER_OF_VILLAGERS];
-        for (int i = 0; i < villagers.length; i++) {
-            villagers[i] = new IntrovertedVillagerEntity(ModEntities.INTROVERTED_VILLAGER, world);
-            Map<TraitType, Allele> traits = villagers[i].villagerTraits.getTraits();
-            traits.clear();
-            if (i < villagers.length / 2) {
-                traits.put(TraitType.AGGRESSION, new Allele('a', 'a'));
-                traits.put(TraitType.AGILITY, new Allele('a', 'a'));
-                traits.put(TraitType.SOCIABILITY, new Allele('a', 'a'));
-                traits.put(TraitType.COURAGE, new Allele('a', 'a'));
-                traits.put(TraitType.INTELLIGENCE, new Allele('A', 'a'));
-                traits.put(TraitType.CURIOSITY, new Allele('A', 'a'));
-                traits.put(TraitType.STRENGTH, new Allele('A', 'a'));
-                traits.put(TraitType.LEADERSHIP, new Allele('A', 'a'));
-                traits.put(TraitType.SPEED, new Allele('A', 'a'));
-                traits.put(TraitType.NIGHT_VISION, new Allele('A', 'a'));
-            } else {
-                traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
-                traits.put(TraitType.AGILITY, new Allele('A', 'a'));
-                traits.put(TraitType.SOCIABILITY, new Allele('A', 'a'));
-                traits.put(TraitType.COURAGE, new Allele('A', 'a'));
-                traits.put(TraitType.INTELLIGENCE, new Allele('a', 'a'));
-                traits.put(TraitType.CURIOSITY, new Allele('a', 'a'));
-                traits.put(TraitType.STRENGTH, new Allele('a', 'a'));
-                traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
-                traits.put(TraitType.SPEED, new Allele('a', 'a'));
-                traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
-            }
-        }
-
         for (int i = 0; i < NUMBER_OF_VILLAGERS; i++) {
+            IntrovertedVillagerEntity introvert = new IntrovertedVillagerEntity(ModEntities.INTROVERTED_VILLAGER, world);
+            Map<TraitType, Allele> traits = introvert.villagerTraits.getTraits();
+            traits.clear();
+            traits.put(TraitType.AGGRESSION, new Allele('A', 'a'));
+            traits.put(TraitType.AGILITY, new Allele('A', 'a'));
+            traits.put(TraitType.COURAGE, new Allele('A', 'a'));
+            traits.put(TraitType.LEADERSHIP, new Allele('a', 'a'));
+            traits.put(TraitType.SPEED, new Allele('a', 'a'));
+            traits.put(TraitType.NIGHT_VISION, new Allele('a', 'a'));
+
             BlockPos spawnPos = pos.add(world.random.nextInt(RECTANGLE_LENGTH - 3), 1, world.random.nextInt(RECTANGLE_WIDTH - 3));
-            villagers[i].refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
-            world.spawnEntity(villagers[i]);
+            introvert.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
+            world.spawnEntity(introvert);
         }
     }
 

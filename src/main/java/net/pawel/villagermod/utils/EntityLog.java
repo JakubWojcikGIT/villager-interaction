@@ -41,8 +41,6 @@ public class EntityLog {
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.AGGRESSION)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.AGILITY)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.COURAGE)).append(",");
-                    csvContent.append(villager.villagerTraits.describeTrait(TraitType.CURIOSITY)).append(",");
-                    csvContent.append(villager.villagerTraits.describeTrait(TraitType.STRENGTH)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.LEADERSHIP)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.SPEED)).append(",");
                     csvContent.append(villager.villagerTraits.describeTrait(TraitType.NIGHT_VISION)).append(",");

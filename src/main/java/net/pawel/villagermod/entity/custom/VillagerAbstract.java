@@ -78,7 +78,7 @@ public abstract class VillagerAbstract extends AnimalEntity {
 
         // Sigmoid function to adjust breedCooldown based on socialBattery and generationDifference
         int generationDifference = currentGeneration - this.generation;
-        double generationFactor = 1.0 / (1 + generationDifference);
+        double generationFactor = Math.exp(-generationDifference);
         double sigmoidFactor = generationFactor * (1 / (1 + Math.exp(-0.1 * (socialBattery - 500))));
         breedCooldown += (int) (sigmoidFactor * 10);
     }
